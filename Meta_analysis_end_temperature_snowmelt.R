@@ -1,4 +1,9 @@
-#Metaanalysis for peak phenology and temperature
+#Metaanalysis for end of activity and temperature
+
+###############################################################################
+# Help and inspiration for the meta-analyses performed in the study comes from
+# the guide by Harrer et al. (2021) cited in the main manuscript
+###############################################################################
 
 library(tidyverse)
 library(readxl)

@@ -1,4 +1,10 @@
 #Meta analysis onset of activity in response to snowmelt
+
+###############################################################################
+# Help and inspiration for the meta-analyses performed in the study comes from
+# the guide by Harrer et al. (2021) cited in the main manuscript
+###############################################################################
+
 library(tidyverse)
 library(readxl)
 library(metafor)
@@ -33,7 +39,11 @@ summary(all)
 ######## Run rma function on simple function with no random effects ########
 
 simple <-
-  rma.mv(yi = Slopediff, V = SEslopediffsq, data = df_summary_snow)
+  rma.mv(
+    yi = Slopediff,
+    V = SEslopediffsq,
+    data = df_summary_snow
+  )
 
 summary(simple)
 
@@ -165,7 +175,13 @@ summary(all_slope)
 
 ########## Run rma function on simple model ###########
 
-simple_slope <- rma.mv(yi = Slope1, V = SEslopesq, data = df_summary_snow)
+simple_slope <-
+  rma.mv(
+    yi = Slope1,
+    V = SEslopesq,
+    random = list( ~ 1 | plotspec),
+    data = df_summary_snow
+  )
 summary(simple_slope)
 
 forest(
@@ -197,7 +213,7 @@ md_slope <-
   rma.mv(
     yi = Slope1,
     V = SEslopesq,
-    random = list( ~ 1 | SpeciesID),
+    random = list(~ 1 | plotspec, ~ 1 | SpeciesID),
     data = df_summary_snow
   )
 
@@ -207,7 +223,7 @@ md1_slope <-
   rma.mv(
     yi = Slope1,
     V = SEslopesq,
-    random = list( ~ 1 | Plot),
+    random = list(~ 1 | plotspec, ~ 1 | Plot),
     data = df_summary_snow
   )
 

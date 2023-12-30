@@ -41,7 +41,7 @@ df_phen_event_final$Snowmelt <-
 #Peak pheno temp
 
 df_summary_temp_peak <-
-  read_xlsx("Data/Summary_tables/Final/df_summary_peak_temp_snow_final.xlsx")
+  read_xlsx("Data/Summary_tables/Final/df_summary_peak_temp_final.xlsx")
 
 df_phen_event_final$Break <-
   df_summary_temp_peak$Break[match(
@@ -89,7 +89,7 @@ h <-
 #Onset pheno temp
 
 df_summary_temp_onset <-
-  read_xlsx("Data/Summary_tables/Final/df_summary_onset_temp_snow_final.xlsx")
+  read_xlsx("Data/Summary_tables/Final/df_summary_onset_temp_final.xlsx")
 
 df_phen_event_final$Break_onset <-
   df_summary_temp_onset$Break[match(
@@ -135,7 +135,7 @@ h2 <-
 
 #End pheno temp
 df_summary_temp_end <-
-  read_xlsx("Data/Summary_tables/Final/df_summary_end_temp_snow_final.xlsx")
+  read_xlsx("Data/Summary_tables/Final/df_summary_end_temp_final.xlsx")
 
 df_phen_event_final$Break_end <-
   df_summary_temp_end$Break[match(
@@ -180,7 +180,7 @@ h3 <-
 #Snowmelt onset
 
 df_summary_snow_onset <-
-  read_xlsx("Data/Summary_tables/Final/df_summary_onset_snow_temp_final.xlsx")
+  read_xlsx("Data/Summary_tables/Final/df_summary_onset_snow_final.xlsx")
 
 
 df_phen_event_final$Break_snow_onset <-
@@ -227,7 +227,7 @@ h4 <-
 
 #Snowmelt peak
 df_summary_snow <-
-  read_xlsx("Data/Summary_tables/Final/df_summary_peak_snow_temp_final.xlsx")
+  read_xlsx("Data/Summary_tables/Final/df_summary_peak_snow_final.xlsx")
 
 df_phen_event_final$Break_snow <-
   df_summary_snow$Break[match(
@@ -270,7 +270,7 @@ h5 <-
 
 #Snowmelt end
 df_summary_snow_end <-
-  read_xlsx("Data/Summary_tables/Final/df_summary_end_snow_temp_final.xlsx")
+  read_xlsx("Data/Summary_tables/Final/df_summary_end_snow_final.xlsx")
 
 df_phen_event_final$Break_snow_end <-
   df_summary_snow_end$Break[match(

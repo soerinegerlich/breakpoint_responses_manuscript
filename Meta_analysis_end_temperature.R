@@ -1,5 +1,10 @@
 #Metaanalysis for peak phenology and temperature
 
+###############################################################################
+# Help and inspiration for the meta-analyses performed in the study comes from
+# the guide by Harrer et al. (2021) cited in the main manuscript
+###############################################################################
+
 library(tidyverse)
 library(readxl)
 library(metafor)
@@ -167,7 +172,7 @@ summary(all_slope)
 ########## Run rma function on simple model ###########
 
 simple_slope <- rma.mv(yi = Slope1, V = SEslopesq, data = df_summary_temp)
-summary(all_other)
+summary(simple_slope)
 
 anova(simple_slope, all_slope)
 

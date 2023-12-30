@@ -6,25 +6,27 @@ library(readxl)
 #Read datasets
 
 df_summary_all_onset <-
-  read_xlsx("Data/Summary_tables/Final/df_summary_onset_snow_temp_final.xlsx")
+  read_xlsx("Data/Summary_tables/Final/df_summary_onset_snow_final.xlsx")
 df_summary_all_temp_onset <-
-  read_xlsx("Data/Summary_tables/Final/df_summary_onset_temp_snow_final.xlsx")
+  read_xlsx("Data/Summary_tables/Final/df_summary_onset_temp_final.xlsx")
 df_summary_all_peak <-
-  read_xlsx("Data/Summary_tables/Final/df_summary_peak_snow_temp_final.xlsx")
+  read_xlsx("Data/Summary_tables/Final/df_summary_peak_snow_final.xlsx")
 df_summary_all_temp_peak <-
-  read_xlsx("Data/Summary_tables/Final/df_summary_peak_temp_snow_final.xlsx")
+  read_xlsx("Data/Summary_tables/Final/df_summary_peak_temp_final.xlsx")
 df_summary_all_end <-
-  read_xlsx("Data/Summary_tables/Final/df_summary_end_snow_temp_final.xlsx")
+  read_xlsx("Data/Summary_tables/Final/df_summary_end_snow_final.xlsx")
 df_summary_all_temp_end <-
-  read_xlsx("Data/Summary_tables/Final/df_summary_end_temp_snow_final.xlsx")
+  read_xlsx("Data/Summary_tables/Final/df_summary_end_temp_final.xlsx")
+
+#Onset snow
 
 #Onset snow
 
 #Create new dataframe with mean values from meta-analysis
-Slopedifference_onset_snow <- 0.86
-SlopediffSE_onset_snow <- 0.20
-Slope1_onset_snow <- 0.09
-SlopeSE_onset_snow <- 0.12
+Slopedifference_onset_snow <- 0.67
+SlopediffSE_onset_snow <- 0.29
+Slope1_onset_snow <- 0.17
+SlopeSE_onset_snow <- 0.09
 
 df_mean_onset_snow <- as.data.frame(Slopedifference_onset_snow)
 df_mean_onset_snow$SlopediffSE <- SlopediffSE_onset_snow
@@ -180,9 +182,8 @@ Onset_snow <- ggplot(df_summary_all_onset) +
       face = "bold",
       size = 20,
       color = "black"
-    ),
-    plot.margin = margin(-7.5, 5, 5.5, 1, "cm")
-  )
+    ))
+    #plot.margin = margin(-7.5, 5, 5.5, 1, "cm")
 
 
 #Onset temp
@@ -243,10 +244,10 @@ df_summary_all_temp_onset$condition <-
   )
 
 #Create new dataframe with mean values from meta analysis
-Slopedifference_onset_temp <- -1.86
-SlopediffSE_onset_temp <- 2.08
-Slope1_onset_temp <- 0.72
-SlopeSE_onset_temp <- 1.87
+Slopedifference_onset_temp <- -0.74
+SlopediffSE_onset_temp <- 2.19
+Slope1_onset_temp <- -0.92
+SlopeSE_onset_temp <- 1.44
 
 df_mean_onset_temp <- as.data.frame(Slopedifference_onset_temp)
 df_mean_onset_temp$SlopediffSE <- SlopediffSE_onset_temp
@@ -344,18 +345,17 @@ Onset_temp <- ggplot(df_summary_all_temp_onset) +
       face = "bold",
       size = 20,
       color = "black"
-    ),
-    plot.margin = margin(-7.5, 1, 5.5, 4, "cm")
-  )
+    ))
+    #plot.margin = margin(-7.5, 1, 5.5, 4, "cm")
 
 
 #Peak snow
 
 #Create new dataframe with mean values from mata-analysis
-Slopedifference_peak_snow <- 0.47
-SlopediffSE_peak_snow <- 0.24
-Slope1_peak_snow <- -0.04
-SlopeSE_peak_snow <- 0.13
+Slopedifference_peak_snow <- 0.51
+SlopediffSE_peak_snow <- 0.30
+Slope1_peak_snow <- 0.03
+SlopeSE_peak_snow <- 0.15
 
 df_mean_peak_snow <- as.data.frame(Slopedifference_peak_snow)
 df_mean_peak_snow$SlopediffSE <- SlopediffSE_peak_snow
@@ -511,17 +511,16 @@ Peak_snow <- ggplot(df_summary_all_peak) +
       face = "bold",
       size = 20,
       color = "black"
-    ),
-    plot.margin = margin(-5, 5, 3, 1, "cm")
-  )
+    ))
+    #plot.margin = margin(-5, 5, 3, 1, "cm")
 
 
 #Peak temperature
 #Create new dataframe with mean values from meta-analysis
-Slopedifference_peak_temp <- -0.33
-SlopediffSE_peak_temp <- 1.68
-Slope1_peak_temp <- -2.24
-SlopeSE_peak_temp <- 0.69
+Slopedifference_peak_temp <- 5.72
+SlopediffSE_peak_temp <- 2.06
+Slope1_peak_temp <- -6.41
+SlopeSE_peak_temp <- 1.97
 
 df_mean_peak_temp <- as.data.frame(Slopedifference_peak_temp)
 df_mean_peak_temp$SlopediffSE <- SlopediffSE_peak_temp
@@ -675,8 +674,8 @@ Peak_temp <- ggplot(df_summary_all_temp_peak) +
       face = "bold",
       size = 20,
       color = "black"
-    ),
-    plot.margin = margin(-5, 1, 3, 4, "cm")
+    )
+    #plot.margin = margin(-5, 1, 3, 4, "cm")
   )
 
 
@@ -684,9 +683,9 @@ Peak_temp <- ggplot(df_summary_all_temp_peak) +
 #End snow
 
 #Create new dataframe with mean values
-Slopedifference_end_snow <- 0.17
-SlopediffSE_end_snow <- 0.17
-Slope1_end_snow <- 0.04
+Slopedifference_end_snow <- 0.23
+SlopediffSE_end_snow <- 0.18
+Slope1_end_snow <- 0.07
 SlopeSE_end_snow <- 0.15
 
 df_mean_end_snow <- as.data.frame(Slopedifference_end_snow)
@@ -844,8 +843,8 @@ End_snow <- ggplot(df_summary_all_end) +
       face = "bold",
       size = 20,
       color = "black"
-    ),
-    plot.margin = margin(-2.5, 5, 0.5, 1, "cm")
+    )
+    #plot.margin = margin(-2.5, 5, 0.5, 1, "cm")
   )
 
 
@@ -853,10 +852,10 @@ End_snow <- ggplot(df_summary_all_end) +
 
 
 #Create new dataframe with mean values from meta-analysis
-Slopedifference_end_temp <- -0.78
-SlopediffSE_end_temp <- 1.47
-Slope1_end_temp <- -0.13
-SlopeSE_end_temp <- 1.02
+Slopedifference_end_temp <- 3.10
+SlopediffSE_end_temp <- 2.12
+Slope1_end_temp <- -2.36
+SlopeSE_end_temp <- 1.13
 
 df_mean_end_temp <- as.data.frame(Slopedifference_end_temp)
 df_mean_end_temp$SlopediffSE <- SlopediffSE_end_temp
@@ -1011,54 +1010,16 @@ End_temp <- ggplot(df_summary_all_temp_end) +
       face = "bold",
       size = 20,
       color = "black"
-    ),
-    plot.margin = margin(-2.5, 1, 0.5, 4, "cm")
+    )
+   # plot.margin = margin(-2.5, 1, 0.5, 4, "cm")
   )
 
 
 
-#Create plain plot for conceptual figure
-
-plain <- ggplot(df_summary_all_temp_onset) +
-  #geom_point(mapping=aes(Slope1, Slopediff, group = interaction(Plot,SpeciesID), shape = Habitat, color = SpeciesID),size = 6, alpha = 0.8)+
-  geom_hline(yintercept = 0, color = "black") +
-  geom_vline(xintercept = 0, color = "black") +
-  ylab("Slope difference between linear segments") +
-  xlab("Slope of first linear segment") +
-  #geom_errorbar(aes(ymin=Slopediff-SEslopediff, ymax=Slopediff+SEslopediff), width = 0.1, size = 1, alpha = 0.5)+
-  #geom_errorbar(aes(xmin=Slope1-SEslope, xmax=Slope1+SEslope), width = 0.1, size = 1, alpha = 0.5)+
-  xlim(-4, 4) +
-  ylim(-4, 4) +
-  #geom_point(data=df_mean, mapping=aes(Slope1, Slopedifference), size = 5, shape = 4, stroke = 3)+
-  theme_test() +
-  theme(
-    axis.text.x = element_blank(),
-    axis.text.y = element_blank(),
-    axis.ticks = element_blank(),
-    axis.title.x = element_text(
-      face = "bold",
-      size = 17,
-      color = "black",
-      vjust = -1
-    ),
-    panel.border = element_rect(
-      colour = "black",
-      fill = NA,
-      size = 1
-    ),
-    axis.title.y = element_text(
-      face = "bold",
-      size = 17,
-      color = "black",
-      vjust = 4
-    ),
-    plot.margin = margin(1, 12.5, 9.5, 12.5, "cm")
-  )
 
 require(ggpubr)
 
-all <-
-  ggarrange(
+ggarrange(
     Onset_temp,
     Onset_snow,
     Peak_temp,
@@ -1073,22 +1034,12 @@ all <-
       "f. End - Temperature",
       "g. End - Snowmelt"
     ),
-    hjust = c(-0.8, -0.35, -0.8, -0.35, -0.9, -0.4),
-    vjust = c(-17, -17, -11.5, -11.5, -6, -6),
+    hjust = -0.3,
+    vjust = -0.5,
     ncol = 2,
     nrow = 3,
     legend = "none",
     font.label = list(color = "black", size = 18)
-  )
+  ) +
+    theme(plot.margin = margin(2, 3, 2, 3, "cm"))
 
-
-ggarrange(
-  plain,
-  all,
-  ncol = 1,
-  nrow = 2,
-  labels = c("a."),
-  hjust = -22,
-  vjust = 1.5,
-  font.label = list(color = "black", size = 20)
-)

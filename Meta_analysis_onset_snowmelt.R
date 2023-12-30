@@ -1,4 +1,10 @@
 #Meta analysis onset of activity in response to snowmelt
+
+###############################################################################
+# Help and inspiration for the meta-analyses performed in the study comes from
+# the guide by Harrer et al. (2021) cited in the main manuscript
+###############################################################################
+
 library(tidyverse)
 library(readxl)
 library(metafor)
@@ -114,7 +120,7 @@ md <-
   rma.mv(
     yi = Slopediff,
     V = SEslopediffsq,
-    random = list( ~ 1 | SpeciesID),
+    random = list(~ 1 | SpeciesID),
     data = df_summary_snow
   )
 summary(md)
@@ -126,7 +132,7 @@ md1 <-
   rma.mv(
     yi = Slopediff,
     V = SEslopediffsq,
-    random = list( ~ 1 | Plot),
+    random = list(~ 1 | Plot),
     data = df_summary_snow
   )
 summary(md1)

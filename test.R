@@ -780,9 +780,9 @@ Plot9 <-
     axis.ticks.y = element_blank(),
     axis.text.x.bottom = element_text(size = 20, colour = "black"),
     axis.title.x = element_text(
-      size = 22,
+      size = 26,
       colour = "black",
-      vjust = -2
+      vjust = -1
     ),
     panel.spacing = unit(0, "lines"),
     strip.text.y = element_blank(),
@@ -850,7 +850,7 @@ Plot10 <- ggplot(df_summary_snow_end, aes(y = SpeciesID, x = Slope1)) +
         axis.text.y = element_blank(),
         axis.ticks.y = element_blank(),
         axis.text.x.bottom = element_text(size = 20, colour = "black"),
-        axis.title.x = element_text(size = 22, colour = "black", vjust = -2),
+        axis.title.x = element_text(size = 26, colour = "black", vjust = -1),
         panel.spacing = unit(0, "lines"),
         strip.text.y = element_blank(),
         legend.position="none",
@@ -918,7 +918,7 @@ Plot11 <-
         axis.text.y = element_blank(),
         axis.ticks.y = element_blank(),
         axis.text.x.bottom = element_text(size = 20, colour = "black"),
-        axis.title.x = element_text(size = 22, colour = "black", vjust = -2),
+        axis.title.x = element_text(size = 26, colour = "black", vjust = -1),
         panel.spacing = unit(0, "lines"),
         strip.text.y = element_blank(),
         legend.position="none",
@@ -985,7 +985,7 @@ Plot12 <- ggplot(df_summary_temp_end, aes(y = SpeciesID, x = Slope1)) +
         #axis.ticks.y = element_blank(),
         axis.text.y = element_text(size = 18, colour = "black"),
         axis.text.x.bottom = element_text(size = 20, colour = "black"),
-        axis.title.x = element_text(size = 22, colour = "black", vjust = -2),
+        axis.title.x = element_text(size = 26, colour = "black", vjust = -1),
         panel.spacing = unit(0, "lines"),
         strip.text.y = element_blank(),
         legend.position="none",
@@ -1014,7 +1014,7 @@ snow <- ggarrange(
     "f. End - Snowmelt",
     ""
   ),
-  hjust = -0.2,
+  hjust = 0,
   vjust = 0.5,
   ncol = 2,
   nrow = 3,
@@ -1038,7 +1038,7 @@ temp <- ggarrange(
     "e. End - Temperature",
     ""
   ),
-  hjust = -0.2,
+  hjust = 0,
   vjust = 0.5,
   ncol = 2,
   nrow = 3,

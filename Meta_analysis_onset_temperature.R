@@ -1,5 +1,10 @@
 #Metaanalysis for onset of phenology and temperature
 
+###############################################################################
+# Help and inspiration for the meta-analyses performed in the study comes from
+# the guide by Harrer et al. (2021) cited in the main manuscript
+###############################################################################
+
 #install.packages("metafor")
 library(tidyverse)
 library(readxl)
