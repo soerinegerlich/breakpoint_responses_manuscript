@@ -312,7 +312,7 @@ h6 <-
     cex.lab = 1.5
   )
 
-par(mfrow = c(3, 2), oma = c(3,4,3,3))
+par(mfrow = c(3, 2), oma = c(12,6,10,6))
 
 plot(h)
 plot(h4)

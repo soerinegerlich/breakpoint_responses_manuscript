@@ -97,7 +97,7 @@ Onset_snow <- ggplot(df_summary_all_onset) +
       fill = condition,
       color = SpeciesID
     ),
-    size = 6,
+    size = 2,
     alpha = 0.8,
     stroke = 1
   ) +
@@ -153,35 +153,35 @@ Onset_snow <- ggplot(df_summary_all_onset) +
   geom_point(
     data = df_mean_onset_snow,
     mapping = aes(Slope1, Slopedifference_onset_snow),
-    size = 6,
+    size = 2,
     shape = 4,
-    stroke = 4
+    stroke = 2
   ) +
   theme_bw() +
   labs(shape = "Habitat", colour = "Taxa") +
   theme(
     axis.text.x = element_text(
       face = "bold",
-      size = 18,
+      size = 8,
       color = "black"
     ),
     axis.text.y = element_text(
       face = "bold",
-      size = 18,
+      size = 8,
       color = "black"
     ),
     axis.title.x = element_text(
       face = "bold",
-      size = 20,
+      size = 10,
       color = "black",
       vjust = 0.5
     ),
     axis.title.y = element_text(
       face = "bold",
-      size = 20,
+      size = 10,
       color = "black"
     ),
-    plot.margin = margin(-7.5, 5, 5.5, 1, "cm")
+    plot.margin = margin(-7.5, 4, 5.5, -2, "cm")
   )
 
 
@@ -263,7 +263,7 @@ Onset_temp <- ggplot(df_summary_all_temp_onset) +
       fill = condition,
       color = SpeciesID
     ),
-    size = 6,
+    size = 2,
     alpha = 0.8,
     stroke = 1
   ) +
@@ -318,34 +318,34 @@ Onset_temp <- ggplot(df_summary_all_temp_onset) +
   geom_point(
     data = df_mean_onset_temp,
     mapping = aes(Slope1, Slopedifference_onset_temp),
-    size = 6,
+    size = 2,
     shape = 4,
-    stroke = 4
+    stroke = 2
   ) +
   theme_bw() +
   theme(
     axis.text.x = element_text(
       face = "bold",
-      size = 18,
+      size = 8,
       color = "black"
     ),
     axis.text.y = element_text(
       face = "bold",
-      size = 18,
+      size = 8,
       color = "black"
     ),
     axis.title.x = element_text(
       face = "bold",
-      size = 20,
+      size = 10,
       color = "black",
       vjust = 0.5
     ),
     axis.title.y = element_text(
       face = "bold",
-      size = 20,
+      size = 10,
       color = "black"
     ),
-    plot.margin = margin(-7.5, 1, 5.5, 4, "cm")
+    plot.margin = margin(-7.5, 2, 5.5, 0, "cm")
   )
 
 
@@ -429,7 +429,7 @@ Peak_snow <- ggplot(df_summary_all_peak) +
       fill = condition,
       color = SpeciesID
     ),
-    size = 6,
+    size = 2,
     alpha = 0.8,
     stroke = 1
   ) +
@@ -484,35 +484,35 @@ Peak_snow <- ggplot(df_summary_all_peak) +
   geom_point(
     data = df_mean_peak_snow,
     mapping = aes(Slope1, Slopedifference_peak_snow),
-    size = 6,
+    size = 2,
     shape = 4,
-    stroke = 4
+    stroke = 2
   ) +
   theme_bw() +
   labs(shape = "Habitat", colour = "Taxa") +
   theme(
     axis.text.x = element_text(
       face = "bold",
-      size = 18,
+      size = 8,
       color = "black"
     ),
     axis.text.y = element_text(
       face = "bold",
-      size = 18,
+      size = 8,
       color = "black"
     ),
     axis.title.x = element_text(
       face = "bold",
-      size = 20,
+      size = 10,
       color = "black",
       vjust = 0.5
     ),
     axis.title.y = element_text(
       face = "bold",
-      size = 20,
+      size = 10,
       color = "black"
     ),
-    plot.margin = margin(-5, 5, 3, 1, "cm")
+    plot.margin = margin(-5, 4, 3, -2, "cm")
   )
 
 
@@ -596,7 +596,7 @@ Peak_temp <- ggplot(df_summary_all_temp_peak) +
       fill = condition,
       color = SpeciesID
     ),
-    size = 6,
+    size = 2,
     alpha = 0.8,
     stroke = 1
   ) +
@@ -649,36 +649,35 @@ Peak_temp <- ggplot(df_summary_all_temp_peak) +
   geom_point(
     data = df_mean_peak_temp,
     mapping = aes(Slope1, Slopedifference_peak_temp),
-    size = 6,
+    size = 2,
     shape = 4,
-    stroke = 4
+    stroke = 2
   ) +
   theme_bw() +
   theme(
     axis.text.x = element_text(
       face = "bold",
-      size = 18,
+      size = 8,
       color = "black"
     ),
     axis.text.y = element_text(
       face = "bold",
-      size = 18,
+      size = 8,
       color = "black"
     ),
     axis.title.x = element_text(
       face = "bold",
-      size = 20,
+      size = 10,
       color = "black",
       vjust = 0.5
     ),
     axis.title.y = element_text(
       face = "bold",
-      size = 20,
+      size = 10,
       color = "black"
     ),
-    plot.margin = margin(-5, 1, 3, 4, "cm")
+    plot.margin = margin(-5, 2, 3, 0, "cm")
   )
-
 
 
 #End snow
@@ -762,7 +761,7 @@ End_snow <- ggplot(df_summary_all_end) +
       fill = condition,
       color = SpeciesID
     ),
-    size = 6,
+    size = 2,
     alpha = 0.8,
     stroke = 1
   ) +
@@ -817,35 +816,35 @@ End_snow <- ggplot(df_summary_all_end) +
   geom_point(
     data = df_mean_end_snow,
     mapping = aes(Slope1, Slopedifference_end_snow),
-    size = 6,
+    size = 2,
     shape = 4,
-    stroke = 4
+    stroke = 2
   ) +
   theme_bw() +
   labs(shape = "Habitat", colour = "Taxa") +
   theme(
     axis.text.x = element_text(
       face = "bold",
-      size = 18,
+      size = 8,
       color = "black"
     ),
     axis.text.y = element_text(
       face = "bold",
-      size = 18,
+      size = 8,
       color = "black"
     ),
     axis.title.x = element_text(
       face = "bold",
-      size = 20,
+      size = 10,
       color = "black",
       vjust = 0.5
     ),
     axis.title.y = element_text(
       face = "bold",
-      size = 20,
+      size = 10,
       color = "black"
     ),
-    plot.margin = margin(-2.5, 5, 0.5, 1, "cm")
+    plot.margin = margin(-2.5, 4, 0.5, -2, "cm")
   )
 
 
@@ -930,7 +929,7 @@ End_temp <- ggplot(df_summary_all_temp_end) +
       fill = condition,
       color = SpeciesID
     ),
-    size = 6,
+    size = 2,
     alpha = 0.8,
     stroke = 1
   ) +
@@ -985,36 +984,35 @@ End_temp <- ggplot(df_summary_all_temp_end) +
   geom_point(
     data = df_mean_end_temp,
     mapping = aes(Slope1, Slopedifference_end_temp),
-    size = 6,
+    size = 2,
     shape = 4,
-    stroke = 4
+    stroke = 2
   ) +
   theme_bw() +
   theme(
     axis.text.x = element_text(
       face = "bold",
-      size = 18,
+      size = 8,
       color = "black"
     ),
     axis.text.y = element_text(
       face = "bold",
-      size = 18,
+      size = 8,
       color = "black"
     ),
     axis.title.x = element_text(
       face = "bold",
-      size = 20,
+      size = 10,
       color = "black",
       vjust = 0.5
     ),
     axis.title.y = element_text(
       face = "bold",
-      size = 20,
+      size = 10,
       color = "black"
     ),
-    plot.margin = margin(-2.5, 1, 0.5, 4, "cm")
+    plot.margin = margin(-2.5, 2, 0.5, 0, "cm")
   )
-
 
 
 #Create plain plot for conceptual figure
@@ -1023,13 +1021,14 @@ plain <- ggplot(df_summary_all_temp_onset) +
   #geom_point(mapping=aes(Slope1, Slopediff, group = interaction(Plot,SpeciesID), shape = Habitat, color = SpeciesID),size = 6, alpha = 0.8)+
   geom_hline(yintercept = 0, color = "black") +
   geom_vline(xintercept = 0, color = "black") +
-  ylab("Slope difference between linear segments") +
+  ylab("Slope difference between 
+       linear segments") +
   xlab("Slope of first linear segment") +
   #geom_errorbar(aes(ymin=Slopediff-SEslopediff, ymax=Slopediff+SEslopediff), width = 0.1, size = 1, alpha = 0.5)+
   #geom_errorbar(aes(xmin=Slope1-SEslope, xmax=Slope1+SEslope), width = 0.1, size = 1, alpha = 0.5)+
   xlim(-4, 4) +
   ylim(-4, 4) +
-  #geom_point(data=df_mean, mapping=aes(Slope1, Slopedifference), size = 5, shape = 4, stroke = 3)+
+  #geom_point(data=df_mean, mapping=aes(Slope1, Slopedifference), size = 5, shape = 4, stroke = 2)+
   theme_test() +
   theme(
     axis.text.x = element_blank(),
@@ -1037,7 +1036,7 @@ plain <- ggplot(df_summary_all_temp_onset) +
     axis.ticks = element_blank(),
     axis.title.x = element_text(
       face = "bold",
-      size = 17,
+      size = 10,
       color = "black",
       vjust = -1
     ),
@@ -1048,11 +1047,11 @@ plain <- ggplot(df_summary_all_temp_onset) +
     ),
     axis.title.y = element_text(
       face = "bold",
-      size = 17,
+      size = 10,
       color = "black",
       vjust = 4
     ),
-    plot.margin = margin(1, 12.5, 9.5, 12.5, "cm")
+    plot.margin = margin(0, 7, 8.5, 3, "cm")
   )
 
 require(ggpubr)
@@ -1073,12 +1072,12 @@ all <-
       "f. End - Temperature",
       "g. End - Snowmelt"
     ),
-    hjust = c(-0.8, -0.35, -0.8, -0.35, -0.9, -0.4),
-    vjust = c(-17, -17, -11.5, -11.5, -6, -6),
+    hjust = c(-0.35, 0.4, -0.35, 0.4, -0.35, 0.4),
+    vjust = c(-37.5, -37.5, -25, -25, -13, -13),
     ncol = 2,
     nrow = 3,
     legend = "none",
-    font.label = list(color = "black", size = 18)
+    font.label = list(color = "black", size = 8)
   )
 
 
@@ -1088,7 +1087,9 @@ ggarrange(
   ncol = 1,
   nrow = 2,
   labels = c("a."),
-  hjust = -22,
-  vjust = 1.5,
-  font.label = list(color = "black", size = 20)
-)
+  hjust = -12,
+  vjust = 0,
+  font.label = list(color = "black", size = 10)
+) +
+  theme(plot.margin = margin(1.5, 2, 2.5, 2, "cm"))
+
