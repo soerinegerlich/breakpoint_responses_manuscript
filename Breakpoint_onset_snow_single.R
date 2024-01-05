@@ -4,10 +4,10 @@ library(tidyverse)
 library(readxl)
 #install.packages("ggpubr")
 
-df_phen_event <- read_excel("Data/df_phen_event_final.xlsx")
+df_phen_event <- read_excel("Data/phenology_data/df_phen_event_final.xlsx")
 
 dfsnowmelt_climatestation <-
-  read_xlsx("Data/Snowmelt_climatestation.xlsx")
+  read_xlsx("Data/phenology_data/Snowmelt_climatestation.xlsx")
 
 
 #Match climate variables with phen. event data to compile them in the same dataframe

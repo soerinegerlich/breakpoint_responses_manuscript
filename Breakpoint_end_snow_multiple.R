@@ -1,7 +1,7 @@
 library(tidyverse)
 library(readxl)
 
-df_phen_event <- read_excel("Data/df_phen_event_final.xlsx")
+df_phen_event <- read_excel("Data/phenology_data/df_phen_event_final.xlsx")
 
 dfsnowmelt_climatestation <-
   read_xlsx("Data/Snowmelt_climatestation.xlsx")

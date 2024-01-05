@@ -5,7 +5,7 @@ library(readxl)
 
 
 
-df_phen_event <- read_excel("Data/df_phen_event_final.xlsx")
+df_phen_event <- read_excel("Data/phenology_data/df_phen_event_final.xlsx")
 
 df_phen_event%>%
   subset(!is.na(End_Temp)&!is.na(Onset)) -> df_phen_event
