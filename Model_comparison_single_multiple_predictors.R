@@ -5,15 +5,16 @@ library(readxl)
 library(metafor)
 
 df_onset_snow <-
-  read_xlsx("Data/Summary_tables/Final/df_summary_onset_snow_final.xlsx")
+  read_xlsx("Data/Summary_tables/Final/df_summary_onset_snow_final_new.xlsx")
 df_onset_snow$Model <- "M1"
 
 #df_onset_snow <- df_onset_snow[,-19] 
 #write_xlsx(df_onset_snow, "Data/Summary_tables/Final\\df_summary_onset_snow_final.xlsx", col_names = TRUE)
 
 df_onset_multiple <-
-  read_xlsx("Data/Summary_tables/Final/df_summary_onset_snow_temp_final.xlsx")
+  read_xlsx("Data/Summary_tables/Final/df_summary_onset_snow_temp_final_new.xlsx")
 df_onset_multiple$Model <- "M2"
+
 
 df_summary_onset_snow <- rbind(df_onset_snow, df_onset_multiple)
 
@@ -59,12 +60,20 @@ summary(all_slope)
 ######### PEAK SNOWMELT #########
 
 df_peak_snow <-
-  read_xlsx("Data/Summary_tables/Final/df_summary_peak_snow_final.xlsx")
+  read_xlsx("Data/Summary_tables/Final/df_summary_peak_snow_final_new.xlsx")
 df_peak_snow$Model <- "M1"
 
 df_peak_multiple <-
-  read_xlsx("Data/Summary_tables/Final/df_summary_peak_snow_temp_final.xlsx")
+  read_xlsx("Data/Summary_tables/Final/df_summary_peak_snow_temp_final_new.xlsx")
 df_peak_multiple$Model <- "M2"
+
+df_peak_snow <- df_peak_snow %>%
+  select(-n.1)
+
+
+#df_peak_snow <- df_peak_snow %>%
+  #filter(!(SpeciesID == "Sciaridae" & Plot == "Plot 6"))
+
 
 df_summary_peak_snow <- rbind(df_peak_snow, df_peak_multiple)
 
@@ -110,12 +119,15 @@ summary(all_slope)
 ######### END SNOWMELT #########
 
 df_end_snow <-
-  read_xlsx("Data/Summary_tables/Final/df_summary_end_snow_final.xlsx")
+  read_xlsx("Data/Summary_tables/Final/df_summary_end_snow_final_new.xlsx")
 df_end_snow$Model <- "M1"
 
 df_end_multiple <-
-  read_xlsx("Data/Summary_tables/Final/df_summary_end_snow_temp_final.xlsx")
+  read_xlsx("Data/Summary_tables/Final/df_summary_end_snow_temp_final_new.xlsx")
 df_end_multiple$Model <- "M2"
+
+df_end_snow <- df_end_snow %>%
+  select(-n.1)
 
 df_summary_end_snow <- rbind(df_end_snow, df_end_multiple)
 
@@ -161,15 +173,16 @@ summary(all_slope)
 
 
 df_onset_temp <-
-  read_xlsx("Data/Summary_tables/Final/df_summary_onset_temp_final.xlsx")
+  read_xlsx("Data/Summary_tables/Final/df_summary_onset_temp_final_new.xlsx")
 df_onset_temp$Model <- "M1"
 
 #df_onset_temp <- df_onset_temp[,-19] 
 #write_xlsx(df_onset_temp, "Data/Summary_tables/Final\\df_summary_onset_temp_final.xlsx", col_names = TRUE)
 
 df_onset_multiple_temp <-
-  read_xlsx("Data/Summary_tables/Final/df_summary_onset_temp_snow_final.xlsx")
+  read_xlsx("Data/Summary_tables/Final/df_summary_onset_temp_snow_final_new.xlsx")
 df_onset_multiple_temp$Model <- "M2"
+
 
 df_summary_onset_temp <- rbind(df_onset_temp, df_onset_multiple_temp)
 
@@ -214,11 +227,11 @@ summary(all_slope)
 ######### PEAK TEMPERATURE #########
 
 df_peak_temp <-
-  read_xlsx("Data/Summary_tables/Final/df_summary_peak_temp_final.xlsx")
+  read_xlsx("Data/Summary_tables/Final/df_summary_peak_temp_final_new.xlsx")
 df_peak_temp$Model <- "M1"
 
 df_peak_multiple_temp <-
-  read_xlsx("Data/Summary_tables/Final/df_summary_peak_temp_snow_final.xlsx")
+  read_xlsx("Data/Summary_tables/Final/df_summary_peak_temp_snow_final_new.xlsx")
 df_peak_multiple_temp$Model <- "M2"
 
 
@@ -269,11 +282,11 @@ summary(all_slope)
 ######### END TEMPERATURE #########
 
 df_end_temp <-
-  read_xlsx("Data/Summary_tables/Final/df_summary_end_temp_final.xlsx")
+  read_xlsx("Data/Summary_tables/Final/df_summary_end_temp_final_new.xlsx")
 df_end_temp$Model <- "M1"
 
 df_end_multiple_temp <-
-  read_xlsx("Data/Summary_tables/Final/df_summary_end_temp_snow_final.xlsx")
+  read_xlsx("Data/Summary_tables/Final/df_summary_end_temp_snow_final_new.xlsx")
 df_end_multiple_temp$Model <- "M2"
 
 df_summary_end_temp <- rbind(df_end_temp, df_end_multiple_temp)

@@ -10,7 +10,7 @@ library(readxl)
 library(metafor)
 
 df_summary_snow <-
-  read_xlsx("Data/Summary_tables/Final/df_summary_end_snow_final.xlsx")
+  read_xlsx("Data/Summary_tables/Final/df_summary_end_snow_final_new.xlsx")
 
 
 #rma.mv() is the only metafor function where it's possible to add random effects. However,

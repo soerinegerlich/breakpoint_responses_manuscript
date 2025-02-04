@@ -5,8 +5,27 @@ library(tidyverse)
 library(readxl)
 library(writexl)
 
-df_phen_event <- read_excel("Data/phenology_data/df_phen_event_final.xlsx")
-#dfsnowmelt_climatestation <- read_xlsx("Data/Snowmelt_climatestation.xlsx")
+df_phenology <-
+  read.csv(
+    "Data/phenology_data/df_phenology_metrics.csv",
+    sep = ",",
+    stringsAsFactors = FALSE,
+    header = TRUE
+  )
+
+df_air <-
+  read.csv(
+    "Data/phenology_data/Air_temp_30_days_rolling.csv",
+    sep = ",",
+    stringsAsFactors = FALSE,
+    header = TRUE
+  )
+
+# Assuming the dataframes are df1 (main dataframe) and df2 (temperature values)
+merged_data <- merge(df_phenology, df_air, by = c("Year", "SpeciesID", "Plot", "Onset", "Peak", "End"), all.x = TRUE)
+
+df_phen_event <- merged_data %>%
+  select("Year", "SpeciesID", "Plot", "Onset", "Peak", "End", "Onset_Temp", "Peak_Temp", "End_Temp")
 
 
 df_phen_event%>%
@@ -101,8 +120,8 @@ bkpr<-function(formula, bpv="x", data, nsim=1000,minlength){
 
 ######## Collect output from model in summary table ########
 
-colnames(df_phen_event)[5]<-"phenology"
-colnames(df_phen_event)[8]<-"x"
+colnames(df_phen_event)[4]<-"phenology"
+colnames(df_phen_event)[7]<-"x"
 
 df_summary_all<-data.frame(SpeciesID=character(),Plot=character(),Intercept=numeric(),Slope1=numeric(),Slopediff=numeric(),
                            Pvalue=numeric(),Break=numeric(),Meanslope=numeric(),Meanslopediff=numeric(),SEslope=numeric(),SEslopediff=numeric(),
@@ -198,7 +217,7 @@ unique(df_summary_all$SpeciesID)
 #df_summary_all <- df_summary_all[, c(1, 2, 3, 4, 5, 13, 6, 7, 8, 9, 10, 11, 12)]
 
 #require(writexl)
-#write_xlsx(df_summary_all, "Data/Summary_tables\\df_summary_temp_50_onset.xlsx", col_names = TRUE)
+#write_xlsx(df_summary_all, "Data/Summary_tables\\df_summary_temp_onset_new.xlsx", col_names = TRUE)
 
 
 slope1 <- df_summary_all$Slope1
@@ -216,11 +235,9 @@ abline(v= mean(df_summary_all$Slopediff),col=1,lty=2)
 plot(df_summary_all$Slopediff,(1/df_summary_all$SEslopediff))
 #This shows the bias away from 0. 
 
-#require(writexl)
-#write_xlsx(df_summary_all, "Data/Summary_tables\\df_summary_temp_50_onset.xlsx", col_names = TRUE)
 
 require(readxl)
-df_summary_temp <- read_xlsx("Data/Summary_tables/df_summary_onset_temp.xlsx")
+df_summary_temp <- read_xlsx("Data/Summary_tables/df_summary_temp_onset_new.xlsx")
 
 length(which(df_summary_temp$Pvalue<0.05))/length(df_summary_temp$Pvalue)
 
@@ -254,7 +271,6 @@ df_summary_temp %>%
     SpeciesID == "MYSC" ~ "Pollinator",
     SpeciesID == "Nymphalidae" ~ "Pollinator",
     SpeciesID == "Phoridae" ~ "Pollinator",
-    SpeciesID == "Scathophagidae" ~ "Pollinator",
     SpeciesID == "Thomisidae" ~ "Predator")) -> df_summary_temp
 
 
@@ -265,7 +281,7 @@ df_summary_temp %>%
     Plot == "Art3" ~ "Mesic heath",
     Plot == "Art4" ~ "Mesic heath",
     Plot == "Art5" ~ "Arid heath",
-    Plot == "Art6" ~ "Snow bed",
+    Plot == "Art6" ~ "Snowbed",
     Plot == "Art7" ~ "Arid heath")) -> df_summary_temp
 
 df_summary_temp$Plot[df_summary_temp$Plot == "Art1"] <- "Plot 1" 
@@ -281,7 +297,7 @@ df_summary_temp$SpeciesID[df_summary_temp$SpeciesID == "CHCE"] <- "Chironomidae"
 df_summary_temp$SpeciesID[df_summary_temp$SpeciesID == "ANMU"] <- "Muscidae"
 df_summary_temp$SpeciesID[df_summary_temp$SpeciesID == "MYSC"] <- "Sciaridae"
 
-write_xlsx(df_summary_temp, "Data/Summary_tables\\df_summary_onset_temp_final.xlsx", col_names = TRUE)
+write_xlsx(df_summary_temp, "Data/Summary_tables\\df_summary_onset_temp_final_new.xlsx", col_names = TRUE)
 
 
 ####Figure####

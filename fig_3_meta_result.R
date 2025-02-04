@@ -1,13 +1,11 @@
 ################################################################################
-##################### Forest plot - Figure 2.7 ###################################
+##################### Forest plot - Figure 3 ###################################
 ################################################################################
 
-df_summary_snow_end <-
-  read_xlsx("Data/Summary_tables/Final/df_summary_end_snow_temp_final_new.xlsx")
-
-df_summary_temp_end <-
-  read_xlsx("Data/Summary_tables/Final/df_summary_end_temp_snow_final_new.xlsx")
-
+df_summary_snow_onset <-
+  read_xlsx("Data/Summary_tables/Final/df_summary_onset_snow_temp_final_new.xlsx")
+df_summary_temp_onset <-
+  read_xlsx("Data/Summary_tables/Final/df_summary_onset_temp_snow_final_new.xlsx")
 
 
 # Define a separate y-position for the meta-analysis
@@ -16,15 +14,15 @@ df_summary_temp_end <-
 
 meta_analysis_snow <- data.frame(
   SpeciesID = "Meta-analysis",  # Label for meta-analysis
-  Slopediff_snow = 0.17,
-  CI_max_slopediff_snow = -0.25,          # Standard error of slope difference
-  CI_min_slopediff_snow = 0.59
+  Slopediff_snow = 0.79,
+  CI_max_slopediff_snow = 0.36,          # Standard error of slope difference
+  CI_min_slopediff_snow = 1.21
 )
 
 meta_analysis_snow$SpeciesID <- "Meta-analysis"
 
-df_summary_snow_end$SpeciesID <- factor(
-  df_summary_snow_end$SpeciesID,
+df_summary_snow_onset$SpeciesID <- factor(
+  df_summary_snow_onset$SpeciesID,
   levels = c(
     "Acari",
     "Collembola",
@@ -48,12 +46,12 @@ df_summary_snow_end$SpeciesID <- factor(
 # Ensure Meta-analysis is re-leveled appropriately
 meta_analysis_snow$SpeciesID <- factor(
   meta_analysis_snow$SpeciesID,
-  levels = levels(df_summary_snow_end$SpeciesID)  # Match levels
+  levels = levels(df_summary_snow_onset$SpeciesID)  # Match levels
 )
 
 
 # Create the plot
-Plot2 <- ggplot(df_summary_snow_end, aes(y = SpeciesID, x = Slopediff)) +
+Plot2 <- ggplot(df_summary_snow_onset, aes(y = SpeciesID, x = Slopediff)) +
   geom_vline(
     xintercept = 0,
     color = "grey",
@@ -148,15 +146,15 @@ Plot2 <- ggplot(df_summary_snow_end, aes(y = SpeciesID, x = Slopediff)) +
 
 meta_analysis_snow <- data.frame(
   SpeciesID = "Meta-analysis",  # Label for meta-analysis
-  Slope1_snow <- 0.00,
-  CI_min_slope1_snow <- -0.38,           # Standard error of slope difference
-  CI_max_slope1_snow <- 0.39
+  Slope1_snow <- 0.01,
+  CI_min_slope1_snow <- -0.24,           # Standard error of slope difference
+  CI_max_slope1_snow <- 0.27
 )
 
 meta_analysis_snow$SpeciesID <- "Meta-analysis"
 
-df_summary_snow_end$SpeciesID <- factor(
-  df_summary_snow_end$SpeciesID,
+df_summary_snow_onset$SpeciesID <- factor(
+  df_summary_snow_onset$SpeciesID,
   levels = c(
     "Acari",
     "Collembola",
@@ -180,11 +178,11 @@ df_summary_snow_end$SpeciesID <- factor(
 # Ensure Meta-analysis is re-leveled appropriately
 meta_analysis_snow$SpeciesID <- factor(
   meta_analysis_snow$SpeciesID,
-  levels = levels(df_summary_snow_end$SpeciesID)  # Match levels
+  levels = levels(df_summary_snow_onset$SpeciesID)  # Match levels
 )
 
 
-Plot1 <- ggplot(df_summary_snow_end, aes(y = SpeciesID, x = Slope1)) +
+Plot1 <- ggplot(df_summary_snow_onset, aes(y = SpeciesID, x = Slope1)) +
   geom_vline(
     xintercept = 0,
     color = "grey",
@@ -282,14 +280,14 @@ Plot1 <- ggplot(df_summary_snow_end, aes(y = SpeciesID, x = Slope1)) +
 
 meta_analysis <- data.frame(
   SpeciesID = "Meta-analysis",  # Label for meta-analysis
-  Slopediff <- -1.05,
-  CI_min_slopediff <- -3.20,          
-  CI_max_slopediff <- 1.11          
+  Slopediff <- -1.96,
+  CI_min_slopediff <- -5.68,          
+  CI_max_slopediff <- 1.77          
 )
 meta_analysis$SpeciesID <- "Meta-analysis"
 
-df_summary_temp_end$SpeciesID <- factor(
-  df_summary_temp_end$SpeciesID,
+df_summary_temp_onset$SpeciesID <- factor(
+  df_summary_temp_onset$SpeciesID,
   levels = c(
     "Acari",
     "Collembola",
@@ -313,12 +311,12 @@ df_summary_temp_end$SpeciesID <- factor(
 # Ensure Meta-analysis is re-leveled appropriately
 meta_analysis$SpeciesID <- factor(
   meta_analysis$SpeciesID,
-  levels = levels(df_summary_temp_end$SpeciesID)  # Match levels
+  levels = levels(df_summary_temp_onset$SpeciesID)  # Match levels
 )
 
 
 # Create the plot
-Plot4 <- ggplot(df_summary_temp_end, aes(y = SpeciesID, x = Slopediff)) +
+Plot4 <- ggplot(df_summary_temp_onset, aes(y = SpeciesID, x = Slopediff)) +
   geom_vline(
     xintercept = 0,
     color = "grey",
@@ -413,15 +411,15 @@ Plot4 <- ggplot(df_summary_temp_end, aes(y = SpeciesID, x = Slopediff)) +
 
 meta_analysis <- data.frame(
   SpeciesID = "Meta-analysis",  # Label for meta-analysis
-  Slope1 <- -0.89,
-  CI_min_slope1 <- -1.86,          
-  CI_max_slope1 <- 0.08         
+  Slope1 <- -1.96,
+  CI_min_slope1 <- -5.68,          
+  CI_max_slope1 <- 1.77         
 )
 
 meta_analysis$SpeciesID <- "Meta-analysis"
 
-df_summary_temp_end$SpeciesID <- factor(
-  df_summary_temp_end$SpeciesID,
+df_summary_temp_onset$SpeciesID <- factor(
+  df_summary_temp_onset$SpeciesID,
   levels = c(
     "Acari",
     "Collembola",
@@ -445,11 +443,11 @@ df_summary_temp_end$SpeciesID <- factor(
 # Ensure Meta-analysis is re-leveled appropriately
 meta_analysis$SpeciesID <- factor(
   meta_analysis$SpeciesID,
-  levels = levels(df_summary_temp_end$SpeciesID)  # Match levels
+  levels = levels(df_summary_temp_onset$SpeciesID)  # Match levels
 )
 
 
-Plot3 <- ggplot(df_summary_temp_end, aes(y = SpeciesID, x = Slope1)) +
+Plot3 <- ggplot(df_summary_temp_onset, aes(y = SpeciesID, x = Slope1)) +
   geom_vline(
     xintercept = 0,
     color = "grey",
@@ -551,6 +549,6 @@ ggarrange(
   legend = "none"
 ) +
   theme(plot.margin = unit(c(1,1,1,1), "cm"))
-#theme(plot.margin = margin(0.5, 0.2, 0.2, 0.2, "cm"))
+  #theme(plot.margin = margin(0.5, 0.2, 0.2, 0.2, "cm"))
 
 

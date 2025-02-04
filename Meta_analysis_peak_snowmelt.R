@@ -11,7 +11,7 @@ library(metafor)
 library(grid)
 
 df_summary_snow <-
-  read_xlsx("Data/Summary_tables/Final\\df_summary_peak_snow_final.xlsx")
+  read_xlsx("Data/Summary_tables/Final\\df_summary_peak_snow_final_new.xlsx")
 
 #rma.mv() is the only metafor function where it's possible to add random effects. However,
 #it's not possible to use SE. Instead we have to include the variance of the
@@ -162,6 +162,7 @@ all_slope <-
                      SpeciesID, ~ 1 | Plot, ~ 1 | plotspec),
     data = df_summary_snow
   )
+
 summary(all_slope)
 
 ########## Run rma function on simple model ###########

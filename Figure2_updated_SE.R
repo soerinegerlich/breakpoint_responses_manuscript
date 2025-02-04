@@ -6,24 +6,26 @@ library(readxl)
 #Read datasets
 
 df_summary_all_onset <-
-  read_xlsx("Data/Summary_tables/Final/df_summary_onset_snow_temp_final.xlsx")
+  read_xlsx("Data/Summary_tables/Final/df_summary_onset_snow_temp_final_new.xlsx")
 df_summary_all_temp_onset <-
-  read_xlsx("Data/Summary_tables/Final/df_summary_onset_temp_snow_final.xlsx")
+  read_xlsx("Data/Summary_tables/Final/df_summary_onset_temp_snow_final_new.xlsx")
 df_summary_all_peak <-
-  read_xlsx("Data/Summary_tables/Final/df_summary_peak_snow_temp_final.xlsx")
+  read_xlsx("Data/Summary_tables/Final/df_summary_peak_snow_temp_final_new.xlsx")
 df_summary_all_temp_peak <-
-  read_xlsx("Data/Summary_tables/Final/df_summary_peak_temp_snow_final.xlsx")
+  read_xlsx("Data/Summary_tables/Final/df_summary_peak_temp_snow_final_new.xlsx")
 df_summary_all_end <-
-  read_xlsx("Data/Summary_tables/Final/df_summary_end_snow_temp_final.xlsx")
+  read_xlsx("Data/Summary_tables/Final/df_summary_end_snow_temp_final_new.xlsx")
 df_summary_all_temp_end <-
-  read_xlsx("Data/Summary_tables/Final/df_summary_end_temp_snow_final.xlsx")
+  read_xlsx("Data/Summary_tables/Final/df_summary_end_temp_snow_final_new.xlsx")
+
+#Onset snow
 
 #Onset snow
 
 #Create new dataframe with mean values from meta-analysis
-Slopedifference_onset_snow <- 0.86
-SlopediffSE_onset_snow <- 0.20
-Slope1_onset_snow <- 0.09
+Slopedifference_onset_snow <- 0.79
+SlopediffSE_onset_snow <- 0.22
+Slope1_onset_snow <- 0.01
 SlopeSE_onset_snow <- 0.12
 
 df_mean_onset_snow <- as.data.frame(Slopedifference_onset_snow)
@@ -97,19 +99,19 @@ Onset_snow <- ggplot(df_summary_all_onset) +
       fill = condition,
       color = SpeciesID
     ),
-    size = 2,
+    size = 4,
     alpha = 0.8,
-    stroke = 1
+    stroke = 0.6
   ) +
   ylab("") +
   xlab("") +
-  scale_shape_manual(values = c(22, 21, 24, 23)) +
+  scale_shape_manual(values = c(22, 21, 24, 23, 25)) +
   scale_color_manual(
     values = c(
       "darkseagreen3",
       "darkseagreen4",
-      "chartreuse",
       "chartreuse3",
+      "chartreuse",
       "brown3",
       "brown4",
       "darkorange",
@@ -127,7 +129,7 @@ Onset_snow <- ggplot(df_summary_all_onset) +
     values = c(
       "darkseagreen3",
       "darkseagreen4",
-      "chartreuse",
+      "chartreuse3",
       "brown3",
       "brown4",
       "darkorange",
@@ -150,39 +152,62 @@ Onset_snow <- ggplot(df_summary_all_onset) +
   #position=position_dodge(0.05), size = 1, alpha = 0.5)+
   xlim(-3, 3) +
   ylim(-3, 5) +
+  geom_errorbar(data = df_mean_onset_snow, 
+                mapping = aes(
+                  x = Slope1,  # Specify x-axis aesthetic
+                  ymin = Slopedifference_onset_snow - SlopediffSE, 
+                  ymax = Slopedifference_onset_snow + SlopediffSE
+                ), 
+                width = 0.0,
+                color = "#414487FF",
+                position = position_dodge(0.05), 
+                linewidth = 1.5, 
+                alpha = 0.8) +
+  # Second error bars for x-values
+  geom_errorbarh(data = df_mean_onset_snow, 
+                 mapping = aes(
+                   y = Slopedifference_onset_snow,  # Specify y-axis aesthetic
+                   xmin = Slope1 - SlopeSE, 
+                   xmax = Slope1 + SlopeSE
+                 ), 
+                 height = 0.0,
+                 color = "#414487FF",
+                 position = position_dodge(0.05), 
+                 linewidth = 1.5, 
+                 alpha = 0.8) +
   geom_point(
     data = df_mean_onset_snow,
     mapping = aes(Slope1, Slopedifference_onset_snow),
-    size = 2,
-    shape = 4,
+    size = 4.5,
+    fill = "#414487FF",
+    color = "#414487FF",
+    shape = 21,
     stroke = 2
   ) +
   theme_bw() +
-  labs(shape = "Habitat", colour = "Taxa") +
   theme(
     axis.text.x = element_text(
       face = "bold",
-      size = 8,
+      size = 10,
       color = "black"
     ),
     axis.text.y = element_text(
       face = "bold",
-      size = 8,
+      size = 10,
       color = "black"
     ),
     axis.title.x = element_text(
       face = "bold",
-      size = 10,
+      size = 12,
       color = "black",
       vjust = 0.5
     ),
     axis.title.y = element_text(
       face = "bold",
-      size = 10,
+      size = 12,
       color = "black"
-    ),
-    plot.margin = margin(-7.5, 4, 5.5, -2, "cm")
-  )
+    ))
+#plot.margin = margin(-7.5, 5, 5.5, 1, "cm")
 
 
 #Onset temp
@@ -243,10 +268,10 @@ df_summary_all_temp_onset$condition <-
   )
 
 #Create new dataframe with mean values from meta analysis
-Slopedifference_onset_temp <- -1.86
-SlopediffSE_onset_temp <- 2.08
-Slope1_onset_temp <- 0.72
-SlopeSE_onset_temp <- 1.87
+Slopedifference_onset_temp <- -2.52
+SlopediffSE_onset_temp <- 2.24
+Slope1_onset_temp <- 1.67
+SlopeSE_onset_temp <- 2.41
 
 df_mean_onset_temp <- as.data.frame(Slopedifference_onset_temp)
 df_mean_onset_temp$SlopediffSE <- SlopediffSE_onset_temp
@@ -263,13 +288,13 @@ Onset_temp <- ggplot(df_summary_all_temp_onset) +
       fill = condition,
       color = SpeciesID
     ),
-    size = 2,
+    size = 4,
     alpha = 0.8,
-    stroke = 1
+    stroke = 0.6
   ) +
   ylab("") +
   xlab("") +
-  scale_shape_manual(values = c(22, 21, 24, 23)) +
+  scale_shape_manual(values = c(22, 21, 24, 23, 25)) +
   scale_color_manual(
     values = c(
       "darkseagreen3",
@@ -291,8 +316,6 @@ Onset_temp <- ggplot(df_summary_all_temp_onset) +
   ) +
   scale_fill_manual(
     values = c(
-      "darkseagreen3",
-      "darkseagreen4",
       "chartreuse",
       "brown3",
       "brown4",
@@ -300,6 +323,7 @@ Onset_temp <- ggplot(df_summary_all_temp_onset) +
       "#FC4E07",
       "darkgoldenrod1",
       "darkorange3",
+      "yellow",
       "gold",
       "dodgerblue",
       "blue",
@@ -315,47 +339,71 @@ Onset_temp <- ggplot(df_summary_all_temp_onset) +
   #position=position_dodge(0.05), size = 1, alpha = 0.3)+
   xlim(-50, 50) +
   ylim(-60, 60) +
+  geom_errorbar(data = df_mean_onset_temp, 
+                mapping = aes(
+                  x = Slope1,  # Specify x-axis aesthetic
+                  ymin = Slopedifference_onset_temp - SlopediffSE, 
+                  ymax = Slopedifference_onset_temp + SlopediffSE
+                ), 
+                width = 0.0,
+                color = "#414487FF",
+                position = position_dodge(0.05), 
+                linewidth = 1.5, 
+                alpha = 0.8) +
+  # Second error bars for x-values
+  geom_errorbar(data = df_mean_onset_temp, 
+                mapping = aes(
+                  y = Slopedifference_onset_temp,  # Specify y-axis aesthetic
+                  xmin = Slope1 - SlopeSE, 
+                  xmax = Slope1 + SlopeSE
+                ), 
+                width = 0.0,
+                color = "#414487FF",
+                position = position_dodge(0.05), 
+                linewidth = 1.5, 
+                alpha = 0.8) +
   geom_point(
     data = df_mean_onset_temp,
     mapping = aes(Slope1, Slopedifference_onset_temp),
-    size = 2,
-    shape = 4,
+    size = 4.5,
+    color = "#414487FF",
+    fill = "#414487FF",
+    shape = 21,
     stroke = 2
   ) +
   theme_bw() +
   theme(
     axis.text.x = element_text(
       face = "bold",
-      size = 8,
+      size = 10,
       color = "black"
     ),
     axis.text.y = element_text(
       face = "bold",
-      size = 8,
+      size = 10,
       color = "black"
     ),
     axis.title.x = element_text(
       face = "bold",
-      size = 10,
+      size = 12,
       color = "black",
       vjust = 0.5
     ),
     axis.title.y = element_text(
       face = "bold",
-      size = 10,
+      size = 12,
       color = "black"
-    ),
-    plot.margin = margin(-7.5, 2, 5.5, 0, "cm")
-  )
+    ))
+#plot.margin = margin(-7.5, 1, 5.5, 4, "cm")
 
 
 #Peak snow
 
 #Create new dataframe with mean values from mata-analysis
-Slopedifference_peak_snow <- 0.47
-SlopediffSE_peak_snow <- 0.24
-Slope1_peak_snow <- -0.04
-SlopeSE_peak_snow <- 0.13
+Slopedifference_peak_snow <- 0.54
+SlopediffSE_peak_snow <- 0.17
+Slope1_peak_snow <- -0.05
+SlopeSE_peak_snow <- 0.15
 
 df_mean_peak_snow <- as.data.frame(Slopedifference_peak_snow)
 df_mean_peak_snow$SlopediffSE <- SlopediffSE_peak_snow
@@ -429,13 +477,13 @@ Peak_snow <- ggplot(df_summary_all_peak) +
       fill = condition,
       color = SpeciesID
     ),
-    size = 2,
+    size = 4,
     alpha = 0.8,
-    stroke = 1
+    stroke = 0.6
   ) +
   ylab("") +
   xlab("") +
-  scale_shape_manual(values = c(22, 21, 24, 23)) +
+  scale_shape_manual(values = c(22, 21, 24, 23, 25)) +
   scale_color_manual(
     values = c(
       "darkseagreen3",
@@ -481,47 +529,69 @@ Peak_snow <- ggplot(df_summary_all_peak) +
   #position=position_dodge(0.05), size = 1, alpha = 0.5)+
   xlim(-3, 3) +
   ylim(-3, 5) +
+  geom_errorbar(data = df_mean_peak_snow, 
+                 mapping = aes(
+                   x = Slope1, 
+                   ymin = Slopedifference_peak_snow - SlopediffSE, 
+                   ymax = Slopedifference_peak_snow + SlopediffSE
+                 ), 
+                 width = 0.0,
+                 color = "#22A884FF",
+                 position = position_dodge(0.05), 
+                 linewidth = 1.5, 
+                 alpha = 0.8) +
+  geom_errorbarh(data = df_mean_peak_snow, 
+                 mapping = aes(
+                   y = Slopedifference_peak_snow, 
+                   xmin = Slope1 - SlopeSE, 
+                   xmax = Slope1 + SlopeSE
+                 ), 
+                 height = 0.0,
+                 color = "#22A884FF",
+                 position = position_dodge(0.05), 
+                 linewidth = 1.5, 
+                 alpha = 0.8) +
   geom_point(
     data = df_mean_peak_snow,
     mapping = aes(Slope1, Slopedifference_peak_snow),
-    size = 2,
-    shape = 4,
+    size = 4.5,
+    fill = "#22A884FF",
+    color = "#22A884FF",
+    shape = 21,
     stroke = 2
   ) +
   theme_bw() +
-  labs(shape = "Habitat", colour = "Taxa") +
   theme(
     axis.text.x = element_text(
       face = "bold",
-      size = 8,
+      size = 10,
       color = "black"
     ),
     axis.text.y = element_text(
       face = "bold",
-      size = 8,
+      size = 10,
       color = "black"
     ),
     axis.title.x = element_text(
       face = "bold",
-      size = 10,
+      size = 12,
       color = "black",
       vjust = 0.5
     ),
     axis.title.y = element_text(
       face = "bold",
-      size = 10,
+      size = 12,
       color = "black"
-    ),
-    plot.margin = margin(-5, 4, 3, -2, "cm")
-  )
+    ))
+#plot.margin = margin(-5, 5, 3, 1, "cm")
 
 
 #Peak temperature
 #Create new dataframe with mean values from meta-analysis
-Slopedifference_peak_temp <- -0.33
-SlopediffSE_peak_temp <- 1.68
-Slope1_peak_temp <- -2.24
-SlopeSE_peak_temp <- 0.69
+Slopedifference_peak_temp <- -1.94
+SlopediffSE_peak_temp <- 1.57
+Slope1_peak_temp <- -1.23
+SlopeSE_peak_temp <- 0.68
 
 df_mean_peak_temp <- as.data.frame(Slopedifference_peak_temp)
 df_mean_peak_temp$SlopediffSE <- SlopediffSE_peak_temp
@@ -596,13 +666,13 @@ Peak_temp <- ggplot(df_summary_all_temp_peak) +
       fill = condition,
       color = SpeciesID
     ),
-    size = 2,
+    size = 4,
     alpha = 0.8,
-    stroke = 1
+    stroke = 0.6
   ) +
   ylab("") +
   xlab("") +
-  scale_shape_manual(values = c(22, 21, 24, 23)) +
+  scale_shape_manual(values = c(22, 21, 24, 23, 25)) +
   scale_color_manual(
     values = c(
       "darkseagreen3",
@@ -627,12 +697,14 @@ Peak_temp <- ggplot(df_summary_all_temp_peak) +
       "darkseagreen3",
       "darkseagreen4",
       "chartreuse",
+      "chartreuse3",
       "brown3",
       "brown4",
       "darkorange",
       "#FC4E07",
       "darkgoldenrod1",
       "darkorange3",
+      "yellow",
       "gold",
       "dodgerblue",
       "blue",
@@ -646,47 +718,72 @@ Peak_temp <- ggplot(df_summary_all_temp_peak) +
   #position=position_dodge(0.05), size = 1, alpha = 0.3)+
   xlim(-50, 50) +
   ylim(-60, 60) +
+  geom_errorbar(data = df_mean_peak_temp, 
+                mapping = aes(
+                  x = Slope1, 
+                  ymin = Slopedifference_peak_temp - SlopediffSE, 
+                  ymax = Slopedifference_peak_temp + SlopediffSE
+                ), 
+                width = 0.0,
+                color = "#22A884FF",
+                position = position_dodge(0.05), 
+                linewidth = 1.5, 
+                alpha = 0.8) +
+  geom_errorbarh(data = df_mean_peak_temp, 
+                 mapping = aes(
+                   y = Slopedifference_peak_temp, 
+                   xmin = Slope1 - SlopeSE, 
+                   xmax = Slope1 + SlopeSE
+                 ), 
+                 height = 0.0,
+                 color = "#22A884FF",
+                 position = position_dodge(0.05), 
+                 linewidth = 1.5, 
+                 alpha = 0.8) +
   geom_point(
     data = df_mean_peak_temp,
     mapping = aes(Slope1, Slopedifference_peak_temp),
-    size = 2,
-    shape = 4,
+    size = 4.5,
+    fill = "#22A884FF",
+    color = "#22A884FF",
+    shape = 21,
     stroke = 2
   ) +
   theme_bw() +
   theme(
     axis.text.x = element_text(
       face = "bold",
-      size = 8,
+      size = 10,
       color = "black"
     ),
     axis.text.y = element_text(
       face = "bold",
-      size = 8,
+      size = 10,
       color = "black"
     ),
     axis.title.x = element_text(
       face = "bold",
-      size = 10,
+      size = 12,
       color = "black",
       vjust = 0.5
     ),
     axis.title.y = element_text(
       face = "bold",
-      size = 10,
+      size = 12,
       color = "black"
-    ),
-    plot.margin = margin(-5, 2, 3, 0, "cm")
+    )
+    #plot.margin = margin(-5, 1, 3, 4, "cm")
   )
+
 
 
 #End snow
 
 #Create new dataframe with mean values
 Slopedifference_end_snow <- 0.17
-SlopediffSE_end_snow <- 0.17
-Slope1_end_snow <- 0.04
-SlopeSE_end_snow <- 0.15
+SlopediffSE_end_snow <- 0.21
+Slope1_end_snow <- 0.00
+SlopeSE_end_snow <- 0.20
 
 df_mean_end_snow <- as.data.frame(Slopedifference_end_snow)
 df_mean_end_snow$SlopediffSE <- SlopediffSE_end_snow
@@ -761,13 +858,13 @@ End_snow <- ggplot(df_summary_all_end) +
       fill = condition,
       color = SpeciesID
     ),
-    size = 2,
+    size = 4,
     alpha = 0.8,
-    stroke = 1
+    stroke = 0.6
   ) +
   ylab("") +
   xlab("") +
-  scale_shape_manual(values = c(22, 21, 24, 23)) +
+  scale_shape_manual(values = c(22, 21, 24, 23, 25)) +
   scale_color_manual(
     values = c(
       "darkseagreen3",
@@ -813,38 +910,61 @@ End_snow <- ggplot(df_summary_all_end) +
   #position=position_dodge(0.05), size = 1, alpha = 0.5)+
   xlim(-3, 3) +
   ylim(-3, 5) +
+  geom_errorbar(data = df_mean_end_snow, 
+                mapping = aes(
+                  x = Slope1, 
+                  ymin = Slopedifference_end_snow - SlopediffSE, 
+                  ymax = Slopedifference_end_snow + SlopediffSE
+                ), 
+                width = 0.0,
+                color = "#7AD151FF",
+                position = position_dodge(0.05), 
+                linewidth = 1.5, 
+                alpha = 0.8) +
+  geom_errorbarh(data = df_mean_end_snow, 
+                 mapping = aes(
+                   y = Slopedifference_end_snow, 
+                   xmin = Slope1 - SlopeSE, 
+                   xmax = Slope1 + SlopeSE
+                 ), 
+                 height = 0.0,
+                 color = "#7AD151FF",
+                 position = position_dodge(0.05), 
+                 linewidth = 1.5, 
+                 alpha = 0.8) +
   geom_point(
     data = df_mean_end_snow,
     mapping = aes(Slope1, Slopedifference_end_snow),
-    size = 2,
-    shape = 4,
+    size = 4.5,
+    shape = 21,
+    fill = "#7AD151FF",
+    color = "#7AD151FF",
     stroke = 2
   ) +
   theme_bw() +
-  labs(shape = "Habitat", colour = "Taxa") +
   theme(
     axis.text.x = element_text(
       face = "bold",
-      size = 8,
+      size = 10,
       color = "black"
     ),
     axis.text.y = element_text(
       face = "bold",
-      size = 8,
+      size = 10,
       color = "black"
     ),
     axis.title.x = element_text(
       face = "bold",
-      size = 10,
+      size = 12,
       color = "black",
       vjust = 0.5
     ),
     axis.title.y = element_text(
       face = "bold",
-      size = 10,
+      size = 12,
       color = "black"
-    ),
-    plot.margin = margin(-2.5, 4, 0.5, -2, "cm")
+    )
+    #plot.margin = margin(-2.5, 5, 0.5, 1, "cm")
   )
 
 
@@ -852,10 +972,10 @@ End_snow <- ggplot(df_summary_all_end) +
 
 
 #Create new dataframe with mean values from meta-analysis
-Slopedifference_end_temp <- -0.78
-SlopediffSE_end_temp <- 1.47
-Slope1_end_temp <- -0.13
-SlopeSE_end_temp <- 1.02
+Slopedifference_end_temp <- -1.05
+SlopediffSE_end_temp <- 1.10
+Slope1_end_temp <- -0.89
+SlopeSE_end_temp <- 0.50
 
 df_mean_end_temp <- as.data.frame(Slopedifference_end_temp)
 df_mean_end_temp$SlopediffSE <- SlopediffSE_end_temp
@@ -929,13 +1049,13 @@ End_temp <- ggplot(df_summary_all_temp_end) +
       fill = condition,
       color = SpeciesID
     ),
-    size = 2,
+    size = 4,
     alpha = 0.8,
-    stroke = 1
+    stroke = 0.6
   ) +
   ylab("") +
   xlab("") +
-  scale_shape_manual(values = c(22, 21, 24, 23)) +
+  scale_shape_manual(values = c(22, 21, 24, 23, 25)) +
   scale_color_manual(
     values = c(
       "darkseagreen3",
@@ -981,115 +1101,90 @@ End_temp <- ggplot(df_summary_all_temp_end) +
   #position=position_dodge(0.05), size = 1, alpha = 0.3)+
   xlim(-50, 50) +
   ylim(-60, 60) +
+  geom_errorbar(data = df_mean_end_temp, 
+                mapping = aes(
+                  x = Slope1,  # Specify x-axis aesthetic
+                  ymin = Slopedifference_end_temp - SlopediffSE, 
+                  ymax = Slopedifference_end_temp + SlopediffSE
+                ), 
+                width = 0.0,
+                color = "#7AD151FF",
+                position = position_dodge(0.05), 
+                linewidth = 1.5, 
+                alpha = 0.8) +
+  # Second error bars for x-values
+  geom_errorbar(data = df_mean_end_temp, 
+                mapping = aes(
+                  y = Slopedifference_end_temp,  # Specify y-axis aesthetic
+                  xmin = Slope1 - SlopeSE, 
+                  xmax = Slope1 + SlopeSE
+                ), 
+                width = 0.0,
+                color = "#7AD151FF",
+                position = position_dodge(0.05), 
+                linewidth = 1.5, 
+                alpha = 0.8) +
   geom_point(
     data = df_mean_end_temp,
     mapping = aes(Slope1, Slopedifference_end_temp),
-    size = 2,
-    shape = 4,
-    stroke = 2
+    size = 4.5,
+    color = "#7AD151FF",
+    fill = "#7AD151FF",
+    shape = 21,
+    stroke = 3
   ) +
   theme_bw() +
   theme(
     axis.text.x = element_text(
       face = "bold",
-      size = 8,
+      size = 10,
       color = "black"
     ),
     axis.text.y = element_text(
       face = "bold",
-      size = 8,
+      size = 10,
       color = "black"
     ),
     axis.title.x = element_text(
       face = "bold",
-      size = 10,
+      size = 12,
       color = "black",
       vjust = 0.5
     ),
     axis.title.y = element_text(
       face = "bold",
-      size = 10,
+      size = 12,
       color = "black"
-    ),
-    plot.margin = margin(-2.5, 2, 0.5, 0, "cm")
+    )
+    # plot.margin = margin(-2.5, 1, 0.5, 4, "cm")
   )
 
 
-#Create plain plot for conceptual figure
 
-plain <- ggplot(df_summary_all_temp_onset) +
-  #geom_point(mapping=aes(Slope1, Slopediff, group = interaction(Plot,SpeciesID), shape = Habitat, color = SpeciesID),size = 6, alpha = 0.8)+
-  geom_hline(yintercept = 0, color = "black") +
-  geom_vline(xintercept = 0, color = "black") +
-  ylab("Slope difference between 
-       linear segments") +
-  xlab("Slope of first linear segment") +
-  #geom_errorbar(aes(ymin=Slopediff-SEslopediff, ymax=Slopediff+SEslopediff), width = 0.1, size = 1, alpha = 0.5)+
-  #geom_errorbar(aes(xmin=Slope1-SEslope, xmax=Slope1+SEslope), width = 0.1, size = 1, alpha = 0.5)+
-  xlim(-4, 4) +
-  ylim(-4, 4) +
-  #geom_point(data=df_mean, mapping=aes(Slope1, Slopedifference), size = 5, shape = 4, stroke = 2)+
-  theme_test() +
-  theme(
-    axis.text.x = element_blank(),
-    axis.text.y = element_blank(),
-    axis.ticks = element_blank(),
-    axis.title.x = element_text(
-      face = "bold",
-      size = 10,
-      color = "black",
-      vjust = -1
-    ),
-    panel.border = element_rect(
-      colour = "black",
-      fill = NA,
-      size = 1
-    ),
-    axis.title.y = element_text(
-      face = "bold",
-      size = 10,
-      color = "black",
-      vjust = 4
-    ),
-    plot.margin = margin(0, 7, 8.5, 3, "cm")
-  )
 
 require(ggpubr)
 
-all <-
-  ggarrange(
-    Onset_temp,
-    Onset_snow,
-    Peak_temp,
-    Peak_snow,
-    End_temp,
-    End_snow,
-    labels = c(
-      "b. Onset - Temperature",
-      "c. Onset - Snowmelt",
-      "d. Peak - Temperature",
-      "e. Peak - Snowmelt",
-      "f. End - Temperature",
-      "g. End - Snowmelt"
-    ),
-    hjust = c(-0.35, 0.4, -0.35, 0.4, -0.35, 0.4),
-    vjust = c(-37.5, -37.5, -25, -25, -13, -13),
-    ncol = 2,
-    nrow = 3,
-    legend = "none",
-    font.label = list(color = "black", size = 8)
-  )
-
-
 ggarrange(
-  plain,
-  all,
-  ncol = 1,
-  nrow = 2,
-  labels = c("a."),
-  hjust = -12,
-  vjust = 0,
+  Onset_temp,
+  Onset_snow,
+  Peak_temp,
+  Peak_snow,
+  End_temp,
+  End_snow,
+  labels = c(
+    "a. Onset - Temperature",
+    "b. Onset - Snowmelt",
+    "c. Peak - Temperature",
+    "d. Peak - Snowmelt",
+    "e. End - Temperature",
+    "f. End - Snowmelt"
+  ),
+  hjust = -0.3,
+  vjust = -0.5,
+  ncol = 2,
+  nrow = 3,
+  legend = "none",
   font.label = list(color = "black", size = 10)
 ) +
-  theme(plot.margin = margin(1.5, 2, 2.5, 2, "cm"))
+  theme(plot.margin = margin(2, 2, 2.5, 2, "cm"))
 

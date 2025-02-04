@@ -10,7 +10,7 @@ library(readxl)
 library(metafor)
 
 df_summary_temp <-
-  read_xlsx("Data/Summary_tables/Final/df_summary_end_temp_snow_final.xlsx")
+  read_xlsx("Data/Summary_tables/Final/df_summary_end_temp_snow_final_new.xlsx")
 
 
 #rma.mv() is the only metafor function where it's possible to add random effects. However,
@@ -176,7 +176,7 @@ forest(
   xlab = "Change in peak emergence (days per °C)"
 )
 
-anova(simple, all)
+anova(simple_slope, all_slope)
 
 
 ####How does taxon and habitat contribute with variation in the model?

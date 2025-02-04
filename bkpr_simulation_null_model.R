@@ -130,7 +130,7 @@ storeseslope1<-c()
 storeseslopediff<-c()
 
 
-yearno<-25
+yearno<-28
 #Number of years in dataset
 
 
@@ -227,7 +227,9 @@ df2 %>%
   geom_boxplot(alpha = .5)
 
 require(readxl)
-df1 <- read_xlsx("Data/Simulation/df_simulation.xlsx")
+df1 <- read_xlsx("Data/Simulation/df_simulation_bp13_new.xlsx")
+#df2 <- read_xlsx("Data/Simulation/df_simulation_null.xlsx")
+
 
 #library(dplyr)
 df_new <- bind_rows(df1, df2)
@@ -243,8 +245,10 @@ df_new <- df_new %>%
 
 
 ggplot(df_new, aes(x = Model, y = Slope_diff_estimate)) + 
-geom_hline(yintercept = 0, linetype = "dashed") + 
-geom_boxplot(alpha = .5)
+  geom_hline(yintercept = 5, color = "red") + 
+  geom_hline(yintercept = 0, linetype = "dashed") + 
+  geom_boxplot(alpha = .5) +
+  theme_classic()
   #annotate("text", x = df_new$Model=="Non_null", y = 15, label = "5.99") + 
   #annotate("text", x = df_new$Model=="Null", y = 15, label = "0.17")
 

@@ -4,21 +4,32 @@ library(tidyverse)
 library(readxl)
 
 
+df_phenology <-
+  read.csv(
+    "Data/phenology_data/df_phenology_metrics.csv",
+    sep = ",",
+    stringsAsFactors = FALSE,
+    header = TRUE
+  )
 
-df_phen_event <- read_excel("Data/phenology_data/df_phen_event_final.xlsx")
+df_air <-
+  read.csv(
+    "Data/phenology_data/Air_temp_30_days_rolling.csv",
+    sep = ",",
+    stringsAsFactors = FALSE,
+    header = TRUE
+  )
+
+# Assuming the dataframes are df1 (main dataframe) and df2 (temperature values)
+merged_data <- merge(df_phenology, df_air, by = c("Year", "SpeciesID", "Plot", "Onset", "Peak", "End"), all.x = TRUE)
+
+df_phen_event <- merged_data %>%
+  select("Year", "SpeciesID", "Plot", "Onset", "Peak", "End", "Onset_Temp", "Peak_Temp", "End_Temp")
+
 
 df_phen_event%>%
   subset(!is.na(End_Temp)&!is.na(Onset)) -> df_phen_event
 
-df_phen_event$Peak <- format(round(df_phen_event$Peak, digits=0))
-
-df_phen_event %>%
-  arrange(Year, Plot) -> df_phen_event
-
-class(df_phen_event_new$Peak)
-#class(df_phen_event_new$Peak)
-#class(df_phen_event_new$Peak_Temp)
-df_phen_event_new$Peak <- as.numeric(df_phen_event_new$Peak)
 
 ######### Run the breakpoint model function #########
 bkpr<-function(formula, bpv="x", data, nsim=1000,minlength){
@@ -95,27 +106,11 @@ bkpr<-function(formula, bpv="x", data, nsim=1000,minlength){
               ci.slope=confint(m1, level = 0.95), AIC_0=AIC(m0), AIC_1=AIC(m1), OriginalSlope=summary(m0)$coefficients[2,"Estimate"], OriginalSE=summary(m0)$coefficients[2,"Std. Error"]))
 }
 
-####Try with all taxa in one plot
-
-df_test <- subset(df_phen_event, SpeciesID == "ANMU")
-df_test <- subset(df_test, Plot == "Art2")
-
-df_test_new <- subset(df_phen_event_new, SpeciesID == "ANMU")
-df_test_new <- subset(df_test_new, Plot == "Art2")
-
-ggplot(df_test, aes(x, phenology))+
-  geom_point()+
-  geom_smooth(method = "lm")
-
-ggplot(df_test_new, aes(x, phenology))+
-  geom_point()+
-  geom_smooth(method = "lm")
-
 
 ######## Collect output from model in summary table ########
 
-colnames(df_phen_event_new)[6]<-"phenology"
-colnames(df_phen_event_new)[9]<-"x"
+colnames(df_phen_event)[5]<-"phenology"
+colnames(df_phen_event)[8]<-"x"
 
 df_summary_all<-data.frame(SpeciesID=character(),Plot=character(),Intercept=numeric(),Slope1=numeric(),Slopediff=numeric(),
                            Pvalue=numeric(),Break=numeric(),Meanslope=numeric(),Meanslopediff=numeric(),SEslope=numeric(),SEslopediff=numeric(),
@@ -123,9 +118,9 @@ df_summary_all<-data.frame(SpeciesID=character(),Plot=character(),Intercept=nume
                            OriginalSE = numeric())
 
 
-for(k in unique(df_phen_event_new$SpeciesID)){
+for(k in unique(df_phen_event$SpeciesID)){
   print(k)
-  df1 <- subset(df_phen_event_new, SpeciesID == k)
+  df1 <- subset(df_phen_event, SpeciesID == k)
  # pdf(paste("Data/Figures\\Figures_Peak_temp",x,".pdf"),width=20,height=12)
  # par(mfrow=c(3,2),mar = c(4,5,4,10), oma = c(2,25,2,25)) #it goes c(bottom, left, top, right) 
   for (j in unique(df1$Plot)) {
@@ -198,10 +193,11 @@ for(k in unique(df_phen_event_new$SpeciesID)){
 
 #dev.off()
 
+#write_xlsx(df_summary_all, "Data/Summary_tables\\df_summary_temp_peak_new.xlsx", col_names = TRUE)
 
 ######## Read summary excel file to do a bit of data clean up #########
 
-df_summary_temp <- read_xlsx("Data/Summary_tables/df_summary_peak_temp.xlsx")
+df_summary_temp <- read_xlsx("Data/Summary_tables/df_summary_temp_peak_new.xlsx")
 
 length(which(df_summary_temp$Pvalue<0.05))/length(df_summary_temp$Pvalue)
 
@@ -221,7 +217,6 @@ df_summary_temp %>%
     SpeciesID == "MYSC" ~ "Pollinator",
     SpeciesID == "Nymphalidae" ~ "Pollinator",
     SpeciesID == "Phoridae" ~ "Pollinator",
-    SpeciesID == "Scathophagidae" ~ "Pollinator",
     SpeciesID == "Thomisidae" ~ "Predator")) -> df_summary_temp
 
 
@@ -248,7 +243,8 @@ df_summary_temp$SpeciesID[df_summary_temp$SpeciesID == "CHCE"] <- "Chironomidae"
 df_summary_temp$SpeciesID[df_summary_temp$SpeciesID == "ANMU"] <- "Muscidae"
 df_summary_temp$SpeciesID[df_summary_temp$SpeciesID == "MYSC"] <- "Sciaridae"
 
-write_xlsx(df_summary_temp, "Data/Summary_tables\\df_summary_peak_temp_final.xlsx", col_names = TRUE)
+write_xlsx(df_summary_temp, "Data/Summary_tables\\df_summary_peak_temp_final_new.xlsx", col_names = TRUE)
+
 
 ####Figure####
 

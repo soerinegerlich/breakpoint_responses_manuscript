@@ -6,17 +6,17 @@ library(readxl)
 #Read datasets
 
 df_summary_all_onset <-
-  read_xlsx("Data/Summary_tables/Final/df_summary_onset_snow_temp_final.xlsx")
+  read_xlsx("Data/Summary_tables/Final/df_summary_onset_snow_temp_final_new.xlsx")
 df_summary_all_temp_onset <-
-  read_xlsx("Data/Summary_tables/Final/df_summary_onset_temp_snow_final.xlsx")
+  read_xlsx("Data/Summary_tables/Final/df_summary_onset_temp_snow_final_new.xlsx")
 df_summary_all_peak <-
-  read_xlsx("Data/Summary_tables/Final/df_summary_peak_snow_temp_final.xlsx")
+  read_xlsx("Data/Summary_tables/Final/df_summary_peak_snow_temp_final_new.xlsx")
 df_summary_all_temp_peak <-
-  read_xlsx("Data/Summary_tables/Final/df_summary_peak_temp_snow_final.xlsx")
+  read_xlsx("Data/Summary_tables/Final/df_summary_peak_temp_snow_final_new.xlsx")
 df_summary_all_end <-
-  read_xlsx("Data/Summary_tables/Final/df_summary_end_snow_temp_final.xlsx")
+  read_xlsx("Data/Summary_tables/Final/df_summary_end_snow_temp_final_new.xlsx")
 df_summary_all_temp_end <-
-  read_xlsx("Data/Summary_tables/Final/df_summary_end_temp_snow_final.xlsx")
+  read_xlsx("Data/Summary_tables/Final/df_summary_end_temp_snow_final_new.xlsx")
 
 #Onset snow
 
@@ -30,12 +30,11 @@ df_significant_onset_snow$SpeciesID <-
     # Relevel group factor
     levels = c(
       "Acari",
-      "Collembola",
       "Ichneumonidae",
       "Chironomidae",
       "Muscidae",
-      "Nymphalidae",
       "Phoridae",
+      "Sciaridae",
       "Linyphiidae",
       "Lycosidae"
     )
@@ -44,65 +43,61 @@ df_significant_onset_snow$SpeciesID <-
 Onset_snow <- ggplot(df_significant_onset_snow) +
   geom_point(
     mapping = aes(
-      Slope1,
-      Slopediff,
+      x = Slope1,
+      y = Slopediff,
       group = interaction(Plot, SpeciesID),
       shape = Habitat,
-      color = SpeciesID
+      color = SpeciesID,  # Controls the outline
+      fill = SpeciesID       # Controls the fill
     ),
-    size = 6,
+    color = "white",  # Set border color to white
+    size = 4,
     alpha = 0.8,
-    stroke = 1
+    stroke = 0.1
   ) +
   ylab("") +
   xlab("") +
-  scale_shape_manual(values = c(15, 16, 17, 18)) +
-  scale_color_manual(
+  scale_shape_manual(values = c(22, 21, 24, 23, 25)) +
+  scale_fill_manual(
     values = c(
       "darkseagreen3",
-      "darkseagreen4",
       "brown4",
       "darkorange",
       "darkgoldenrod1",
-      "darkorange3",
       "yellow",
+      "gold",
       "dodgerblue",
       "blue"
     )
-  )  +
+  ) +
   geom_hline(yintercept = 0) +
   geom_vline(xintercept = 0) +
-  #geom_errorbar(aes(ymin=Slopediff-SEslopediff, ymax=Slopediff+SEslopediff), width=.3,
-  #position=position_dodge(0.05), size = 1, alpha = 0.5)+
-  #geom_errorbar(aes(xmin=Slope1-SEslope, xmax=Slope1+SEslope), width=.3,
-  #position=position_dodge(0.05), size = 1, alpha = 0.5)+
   xlim(-3, 3) +
   ylim(-3, 5) +
   theme_bw() +
-  labs(shape = "Habitat", colour = "Taxa") +
+  labs(shape = "Habitat", colour = "Taxa", fill = "Habitat") +
   theme(
     axis.text.x = element_text(
       face = "bold",
-      size = 18,
+      size = 8,
       color = "black"
     ),
     axis.text.y = element_text(
       face = "bold",
-      size = 18,
+      size = 8,
       color = "black"
     ),
     axis.title.x = element_text(
       face = "bold",
-      size = 20,
+      size = 10,
       color = "black",
       vjust = 0.5
     ),
     axis.title.y = element_text(
       face = "bold",
-      size = 20,
+      size = 10,
       color = "black"
-    ),
-    plot.margin = margin(3, 6, 1, 2, "cm")
+    )
   )
 
 
@@ -118,12 +113,10 @@ df_significant_peak_snow$SpeciesID <-
     df_significant_peak_snow$SpeciesID,
     # Relevel group factor
     levels = c(
+      "Acari",
       "Collembola",
       "Ichneumonidae",
       "Chironomidae",
-      "Culicidae",
-      "Muscidae",
-      "Nymphalidae",
       "Phoridae",
       "Sciaridae",
       "Linyphiidae",
@@ -134,33 +127,33 @@ df_significant_peak_snow$SpeciesID <-
 Peak_snow <- ggplot(df_significant_peak_snow) +
   geom_point(
     mapping = aes(
-      Slope1,
-      Slopediff,
+      x = Slope1,
+      y = Slopediff,
       group = interaction(Plot, SpeciesID),
       shape = Habitat,
-      color = SpeciesID
+      color = SpeciesID,  # Controls the outline
+      fill = SpeciesID       # Controls the fill
     ),
-    size = 6,
+    color = "white",  # Set border color to white
+    size = 4,
     alpha = 0.8,
-    stroke = 1
+    stroke = 0.1
   ) +
   ylab("") +
   xlab("") +
-  scale_shape_manual(values = c(15, 16, 17, 18)) +
-  scale_color_manual(
+  scale_shape_manual(values = c(22, 21)) +
+  scale_fill_manual(
     values = c(
+      "darkseagreen3",
       "darkseagreen4",
       "brown4",
       "darkorange",
-      "#FC4E07",
-      "darkgoldenrod1",
-      "darkorange3",
       "yellow",
       "gold",
       "dodgerblue",
       "blue"
     )
-  )  +
+  ) +
   geom_hline(yintercept = 0) +
   geom_vline(xintercept = 0) +
   #geom_errorbar(aes(ymin=Slopediff-SEslopediff, ymax=Slopediff+SEslopediff), width=.3,
@@ -174,26 +167,25 @@ Peak_snow <- ggplot(df_significant_peak_snow) +
   theme(
     axis.text.x = element_text(
       face = "bold",
-      size = 18,
+      size = 8,
       color = "black"
     ),
     axis.text.y = element_text(
       face = "bold",
-      size = 18,
+      size = 8,
       color = "black"
     ),
     axis.title.x = element_text(
       face = "bold",
-      size = 20,
+      size = 10,
       color = "black",
       vjust = 0.5
     ),
     axis.title.y = element_text(
       face = "bold",
-      size = 20,
+      size = 10,
       color = "black"
-    ),
-    plot.margin = margin(0, 6, 4, 2, "cm")
+    )
   )
 
 
@@ -210,9 +202,12 @@ df_significant_end_snow$SpeciesID <-
     levels = c(
       "Acari",
       "Collembola",
+      "Coccoidea",
       "Ichneumonidae",
+      "Chironomidae",
+      "Culicidae",
       "Muscidae",
-      "Sciaridae",
+      "Phoridae",
       "Lycosidae"
     )
   )
@@ -220,29 +215,34 @@ df_significant_end_snow$SpeciesID <-
 End_snow <- ggplot(df_significant_end_snow) +
   geom_point(
     mapping = aes(
-      Slope1,
-      Slopediff,
+      x = Slope1,
+      y = Slopediff,
       group = interaction(Plot, SpeciesID),
       shape = Habitat,
-      color = SpeciesID
+      color = SpeciesID,  # Controls the outline
+      fill = SpeciesID       # Controls the fill
     ),
-    size = 6,
+    color = "white",  # Set border color to white
+    size = 4,
     alpha = 0.8,
-    stroke = 1
+    stroke = 0.1
   ) +
   ylab("") +
   xlab("") +
-  scale_shape_manual(values = c(15, 16, 17, 18)) +
-  scale_color_manual(
+  scale_shape_manual(values = c(22, 21, 24, 23, 25)) +
+  scale_fill_manual(
     values = c(
       "darkseagreen3",
       "darkseagreen4",
+      "chartreuse",
       "brown4",
       "darkorange",
-      "gold",
+      "#FC4E07",
+      "darkgoldenrod1",
+      "yellow",
       "blue"
     )
-  )  +
+  ) +
   geom_hline(yintercept = 0) +
   geom_vline(xintercept = 0) +
   #geom_errorbar(aes(ymin=Slopediff-SEslopediff, ymax=Slopediff+SEslopediff), width=.3,
@@ -256,26 +256,25 @@ End_snow <- ggplot(df_significant_end_snow) +
   theme(
     axis.text.x = element_text(
       face = "bold",
-      size = 18,
+      size = 8,
       color = "black"
     ),
     axis.text.y = element_text(
       face = "bold",
-      size = 18,
+      size = 8,
       color = "black"
     ),
     axis.title.x = element_text(
       face = "bold",
-      size = 20,
+      size = 10,
       color = "black",
       vjust = 0.5
     ),
     axis.title.y = element_text(
       face = "bold",
-      size = 20,
+      size = 10,
       color = "black"
-    ),
-    plot.margin = margin(-3, 6, 7, 2, "cm")
+    )
   )
 
 
@@ -290,7 +289,8 @@ df_significant_onset_temp$SpeciesID <-
     df_significant_onset_temp$SpeciesID,
     # Relevel group factor
     levels = c(
-      "Collembola",
+      "Acari",
+      "Chalcidoidea",
       "Chironomidae",
       "Lycosidae"
     )
@@ -299,22 +299,25 @@ df_significant_onset_temp$SpeciesID <-
 Onset_temp <- ggplot(df_significant_onset_temp) +
   geom_point(
     mapping = aes(
-      Slope1,
-      Slopediff,
+      x = Slope1,
+      y = Slopediff,
       group = interaction(Plot, SpeciesID),
       shape = Habitat,
-      color = SpeciesID
+      color = SpeciesID,  # Controls the outline
+      fill = SpeciesID       # Controls the fill
     ),
-    size = 6,
+    color = "white",  # Set border color to white
+    size = 4,
     alpha = 0.8,
-    stroke = 1
+    stroke = 0.1
   ) +
   ylab("") +
   xlab("") +
-  scale_shape_manual(values = c(15, 16, 17, 18)) +
-  scale_color_manual(
+  scale_shape_manual(values = c(22, 21, 24, 23, 25)) +
+  scale_fill_manual(
     values = c(
-      "darkseagreen4",
+      "darkseagreen3",
+      "brown3",
       "darkorange",
       "blue"
     )
@@ -332,26 +335,25 @@ Onset_temp <- ggplot(df_significant_onset_temp) +
   theme(
     axis.text.x = element_text(
       face = "bold",
-      size = 18,
+      size = 8,
       color = "black"
     ),
     axis.text.y = element_text(
       face = "bold",
-      size = 18,
+      size = 8,
       color = "black"
     ),
     axis.title.x = element_text(
       face = "bold",
-      size = 20,
+      size = 10,
       color = "black",
       vjust = 0.5
     ),
     axis.title.y = element_text(
       face = "bold",
-      size = 20,
+      size = 10,
       color = "black"
-    ),
-    plot.margin = margin(3, 2, 1, 6, "cm")
+    )
   )
 
 
@@ -366,39 +368,35 @@ df_significant_peak_temp$SpeciesID <-
     df_significant_peak_temp$SpeciesID,
     # Relevel group factor
     levels = c(
+      "Acari",
       "Collembola",
-      "Nymphalidae"
+      "Linyphiidae"
     )
   )
 
 Peak_temp <- ggplot(df_significant_peak_temp) +
   geom_point(
     mapping = aes(
-      Slope1,
-      Slopediff,
+      x = Slope1,
+      y = Slopediff,
       group = interaction(Plot, SpeciesID),
       shape = Habitat,
-      color = SpeciesID
+      color = SpeciesID,  # Controls the outline
+      fill = SpeciesID       # Controls the fill
     ),
-    size = 6,
+    color = "white",  # Set border color to white
+    size = 4,
     alpha = 0.8,
-    stroke = 1
+    stroke = 0.1
   ) +
   ylab("") +
   xlab("") +
-  scale_shape_manual(values = c(15, 16, 17, 18)) +
-  scale_color_manual(
+  scale_shape_manual(values = c(22, 21, 24, 23, 25)) +
+  scale_fill_manual(
     values = c(
+      "darkseagreen3",
       "darkseagreen4",
-      "brown4",
-      "darkorange",
-      "#FC4E07",
-      "darkgoldenrod1",
-      "darkorange3",
-      "yellow",
-      "gold",
-      "dodgerblue",
-      "blue"
+      "dodgerblue"
     )
   )  +
   geom_hline(yintercept = 0) +
@@ -414,26 +412,25 @@ Peak_temp <- ggplot(df_significant_peak_temp) +
   theme(
     axis.text.x = element_text(
       face = "bold",
-      size = 18,
+      size = 8,
       color = "black"
     ),
     axis.text.y = element_text(
       face = "bold",
-      size = 18,
+      size = 8,
       color = "black"
     ),
     axis.title.x = element_text(
       face = "bold",
-      size = 20,
+      size = 10,
       color = "black",
       vjust = 0.5
     ),
     axis.title.y = element_text(
       face = "bold",
-      size = 20,
+      size = 10,
       color = "black"
-    ),
-    plot.margin = margin(0, 2, 4, 6, "cm")
+    )
   )
 
 
@@ -464,7 +461,7 @@ End_temp <- ggplot(df_significant_end_temp) +
       shape = Habitat,
       color = SpeciesID
     ),
-    size = 6,
+    size = 2,
     alpha = 0.8,
     stroke = 1
   ) +
@@ -492,52 +489,53 @@ End_temp <- ggplot(df_significant_end_temp) +
   theme(
     axis.text.x = element_text(
       face = "bold",
-      size = 18,
+      size = 8,
       color = "black"
     ),
     axis.text.y = element_text(
       face = "bold",
-      size = 18,
+      size = 8,
       color = "black"
     ),
     axis.title.x = element_text(
       face = "bold",
-      size = 20,
+      size = 10,
       color = "black",
       vjust = 0.5
     ),
     axis.title.y = element_text(
       face = "bold",
-      size = 20,
+      size = 10,
       color = "black"
-    ),
-    plot.margin = margin(-3, 2, 7, 6, "cm")
+    )
   )
+
 
 
 require(ggpubr)
 
 ggarrange(
-    Onset_temp,
-    Onset_snow,
-    Peak_temp,
-    Peak_snow,
-    End_temp,
-    End_snow,
-    labels = c(
-      "b. Onset - Temperature",
-      "c. Onset - Snowmelt",
-      "d. Peak - Temperature",
-      "e. Peak - Snowmelt",
-      "f. End - Temperature",
-      "g. End - Snowmelt"
-    ),
-    hjust = c(-1, -0.5, -2, -0.35, -2, -0.35),
-    vjust = c(3, 3, -1, -1, -6, -6),
-    ncol = 2,
-    nrow = 3,
-    legend = "none",
-    font.label = list(color = "black", size = 18)
-  )
+  Onset_temp,
+  Onset_snow,
+  Peak_temp,
+  Peak_snow,
+  End_temp,
+  End_snow,
+  labels = c(
+    "a. Onset - Temperature",
+    "b. Onset - Snowmelt",
+    "c. Peak - Temperature",
+    "d. Peak - Snowmelt",
+    "e. End - Temperature",
+    "f. End - Snowmelt"
+  ),
+  hjust = -0.3,
+  vjust = -0.5,
+  ncol = 2,
+  nrow = 3,
+  legend = "none",
+  font.label = list(color = "black", size = 12)
+) +
+  theme(plot.margin = margin(2, 2, 2, 2, "cm"))
 
 

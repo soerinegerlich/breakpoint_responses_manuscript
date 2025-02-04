@@ -1,10 +1,33 @@
 library(tidyverse)
 library(readxl)
 
-df_phen_event <- read_excel("Data/phenology_data/df_phen_event_final.xlsx")
+df_phenology <-
+  read.csv(
+    "Data/phenology_data/df_phenology_metrics.csv",
+    sep = ",",
+    stringsAsFactors = FALSE,
+    header = TRUE
+  )
+
+df_air <-
+  read.csv(
+    "Data/phenology_data/Air_temp_30_days_rolling.csv",
+    sep = ",",
+    stringsAsFactors = FALSE,
+    header = TRUE
+  )
+
+# Assuming the dataframes are df1 (main dataframe) and df2 (temperature values)
+merged_data <- merge(df_phenology, df_air, by = c("Year", "SpeciesID", "Plot", "Onset", "Peak", "End"), all.x = TRUE)
+
+df_phen_event <- merged_data %>%
+  select("Year", "SpeciesID", "Plot", "Onset", "Peak", "End", "Onset_Temp", "Peak_Temp", "End_Temp")
+
+#df_phen_event <- na.omit(df_phen_event)
+
 
 dfsnowmelt_climatestation <-
-  read_xlsx("Data/phenology_data/Snowmelt_climatestation.xlsx")
+  read_xlsx("Data/climate_data/snow/Snowmelt_Climatestation_updated.xlsx")
 
 
 #Match climate variables with phen. event data to compile them in the same dataframe
@@ -135,9 +158,9 @@ bkpr <- function(formula,
 ######## Collect output from model in summary table ########
 
 #colnames(df_phen_event)[9]<-"temperature"
-colnames(df_phen_event_50)[5] <- "phenology"
-colnames(df_phen_event_50)[8] <- "x"
-colnames(df_phen_event_50)[11] <- "z"
+colnames(df_phen_event)[4] <- "phenology"
+colnames(df_phen_event)[7] <- "x"
+colnames(df_phen_event)[10] <- "z"
 
 df_summary_all <-
   data.frame(
@@ -161,9 +184,9 @@ df_summary_all <-
     OriginalSE = numeric()
   )
 
-for (i in unique(df_phen_event_50$SpeciesID)) {
+for (i in unique(df_phen_event$SpeciesID)) {
   print(i)
-  df1 <- subset(df_phen_event_50, SpeciesID == i)
+  df1 <- subset(df_phen_event, SpeciesID == i)
   #pdf(paste("Data/Figures_two_predictors\\Peak_temp",x,".pdf"),width=20,height=12)
   #par(mfrow=c(3,2),mar = c(4,5,4,10), oma = c(2,25,2,25)) #it goes c(bottom, left, top, right)
   for (j in unique(df1$Plot)) {
@@ -245,12 +268,12 @@ for (i in unique(df_phen_event_50$SpeciesID)) {
 
 
 #require(writexl)
-#write_xlsx(df_summary_all, "Data/Summary_tables\\df_summary_temp_snow_50_peak.xlsx", col_names = TRUE)
+#write_xlsx(df_summary_all, "Data/Summary_tables\\df_summary_onset_temp_snow_new.xlsx", col_names = TRUE)
 
 ######## Read summary excel file to do a bit of data clean up #########
 
 df_summary_temp_onset <-
-  read_xlsx("Data/Summary_tables/df_summary_onset_temp_snow.xlsx")
+  read_xlsx("Data/Summary_tables/df_summary_onset_temp_snow_new.xlsx")
 
 length(which(df_summary_temp_onset$Pvalue < 0.06)) / length(df_summary_temp_onset$Pvalue)
 
@@ -287,7 +310,6 @@ df_summary_temp_onset %>%
       SpeciesID == "MYSC" ~ "Pollinator",
       SpeciesID == "Nymphalidae" ~ "Pollinator",
       SpeciesID == "Phoridae" ~ "Pollinator",
-      SpeciesID == "Scathophagidae" ~ "Pollinator",
       SpeciesID == "Thomisidae" ~ "Predator"
     )
   ) -> df_summary_temp_onset
@@ -301,7 +323,7 @@ df_summary_temp_onset %>%
       Plot == "Art3" ~ "Mesic heath",
       Plot == "Art4" ~ "Mesic heath",
       Plot == "Art5" ~ "Arid heath",
-      Plot == "Art6" ~ "Snow bed",
+      Plot == "Art6" ~ "Snowbed",
       Plot == "Art7" ~ "Arid heath"
     )
   ) -> df_summary_temp_onset
@@ -329,4 +351,4 @@ df_summary_temp_onset$SpeciesID[df_summary_temp_onset$SpeciesID == "ANMU"] <-
 df_summary_temp_onset$SpeciesID[df_summary_temp_onset$SpeciesID == "MYSC"] <-
   "Sciaridae"
 
-write_xlsx(df_summary_temp_onset, "Data/Summary_tables\\df_summary_onset_temp_snow_final.xlsx", col_names = TRUE)
+write_xlsx(df_summary_temp_onset, "Data/Summary_tables\\df_summary_onset_temp_snow_final_new.xlsx", col_names = TRUE)

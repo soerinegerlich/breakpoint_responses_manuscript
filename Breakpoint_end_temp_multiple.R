@@ -1,14 +1,40 @@
 library(tidyverse)
 library(readxl)
 
-df_phen_event <- read_excel("Data/phenology_data/df_phen_event_final.xlsx")
+df_phenology <-
+  read.csv(
+    "Data/phenology_data/df_phenology_metrics.csv",
+    sep = ",",
+    stringsAsFactors = FALSE,
+    header = TRUE
+  )
 
-dfsnowmelt_climatestation <- read_xlsx("Data/phenology_data/Snowmelt_climatestation.xlsx")
+df_air <-
+  read.csv(
+    "Data/phenology_data/Air_temp_30_days_rolling.csv",
+    sep = ",",
+    stringsAsFactors = FALSE,
+    header = TRUE
+  )
+
+# Assuming the dataframes are df1 (main dataframe) and df2 (temperature values)
+merged_data <- merge(df_phenology, df_air, by = c("Year", "SpeciesID", "Plot", "Onset", "Peak", "End"), all.x = TRUE)
+
+df_phen_event <- merged_data %>%
+  select("Year", "SpeciesID", "Plot", "Onset", "Peak", "End", "Onset_Temp", "Peak_Temp", "End_Temp")
+
+#df_phen_event <- na.omit(df_phen_event)
+
+
+dfsnowmelt_climatestation <-
+  read_xlsx("Data/climate_data/snow/Snowmelt_Climatestation_updated.xlsx")
 
 
 #Match climate variables with phen. event data to compile them in the same dataframe
-df_phen_event$Snowmelt <- dfsnowmelt_climatestation$DOY[match(paste0(df_phen_event$Year),
-                                                              paste0(dfsnowmelt_climatestation$Year))]
+df_phen_event$Snowmelt <-
+  dfsnowmelt_climatestation$DOY[match(paste0(df_phen_event$Year),
+                                      paste0(dfsnowmelt_climatestation$Year))]
+
 df_phen_event%>%
   subset(!is.na(End_Temp)&!is.na(Onset)) -> df_phen_event
 
@@ -95,18 +121,18 @@ bkpr<-function(formula, bpv="x", data, nsim=1000,minlength){
 ######## Collect output from model in summary table ########
 
 #colnames(df_phen_event)[9]<-"temperature"
-colnames(df_phen_event)[7]<-"phenology"
-colnames(df_phen_event)[10]<-"x"
-colnames(df_phen_event)[11]<-"z"
+colnames(df_phen_event)[6]<-"phenology"
+colnames(df_phen_event)[9]<-"x"
+colnames(df_phen_event)[10]<-"z"
 
 df_summary_all<-data.frame(SpeciesID=character(),Plot=character(),Intercept=numeric(),Slope1=numeric(),Slopediff=numeric(),
                            Pvalue=numeric(),Break=numeric(),Meanslope=numeric(),Meanslopediff=numeric(),SEslope=numeric(),SEslopediff=numeric(),
                            CI_lwr=numeric(), CI_upr=numeric(),n=numeric(),AIC_0=numeric(), AIC_1=numeric(), OriginalSlope = numeric(),
                            OriginalSE = numeric())
 
-for(i in unique(df_phen_event_50$SpeciesID)){
+for(i in unique(df_phen_event$SpeciesID)){
   print(i)
-  df1 <- subset(df_phen_event_50, SpeciesID == i)
+  df1 <- subset(df_phen_event, SpeciesID == i)
   #pdf(paste("Data/Figures_two_predictors\\Peak_temp",x,".pdf"),width=20,height=12)
   #par(mfrow=c(3,2),mar = c(4,5,4,10), oma = c(2,25,2,25)) #it goes c(bottom, left, top, right) 
   for (j in unique(df1$Plot)) {
@@ -180,11 +206,11 @@ for(i in unique(df_phen_event_50$SpeciesID)){
 
 
 #require(writexl)
-#write_xlsx(df_summary_all, "Data/Summary_tables\\df_summary_temp_snow_50_end.xlsx", col_names = TRUE)
+write_xlsx(df_summary_all, "Data/Summary_tables\\df_summary_end_temp_snow_new.xlsx", col_names = TRUE)
 
 ######## Read summary excel file to do a bit of data clean up #########
 
-df_summary_temp_end <- read_xlsx("Data/Summary_tables/df_summary_end_temp_snow.xlsx")
+df_summary_temp_end <- read_xlsx("Data/Summary_tables/df_summary_end_temp_snow_new.xlsx")
 
 df_summary_temp_end <- subset(df_summary_temp_end, df_summary_temp_end$Plot!= "Art1" | df_summary_temp_end$SpeciesID!= "Collembola")
 df_summary_temp_end <- subset(df_summary_temp_end, df_summary_temp_end$Plot!= "Art1" | df_summary_temp_end$SpeciesID!= "Acari")
@@ -208,7 +234,6 @@ df_summary_temp_end %>%
     SpeciesID == "MYSC" ~ "Pollinator",
     SpeciesID == "Nymphalidae" ~ "Pollinator",
     SpeciesID == "Phoridae" ~ "Pollinator",
-    SpeciesID == "Scathophagidae" ~ "Pollinator",
     SpeciesID == "Thomisidae" ~ "Predator")) -> df_summary_temp_end
 
 
@@ -219,7 +244,7 @@ df_summary_temp_end %>%
     Plot == "Art3" ~ "Mesic heath",
     Plot == "Art4" ~ "Mesic heath",
     Plot == "Art5" ~ "Arid heath",
-    Plot == "Art6" ~ "Snow bed",
+    Plot == "Art6" ~ "Snowbed",
     Plot == "Art7" ~ "Arid heath")) -> df_summary_temp_end
 
 df_summary_temp_end$Plot[df_summary_temp_end$Plot == "Art1"] <- "Plot 1" 
@@ -235,6 +260,6 @@ df_summary_temp_end$SpeciesID[df_summary_temp_end$SpeciesID == "CHCE"] <- "Chiro
 df_summary_temp_end$SpeciesID[df_summary_temp_end$SpeciesID == "ANMU"] <- "Muscidae"
 df_summary_temp_end$SpeciesID[df_summary_temp_end$SpeciesID == "MYSC"] <- "Sciaridae"
 
-write_xlsx(df_summary_temp_end, "Data/Summary_tables\\df_summary_end_temp_snow_final.xlsx", col_names = TRUE)
+write_xlsx(df_summary_temp_end, "Data/Summary_tables\\df_summary_end_temp_snow_final_new.xlsx", col_names = TRUE)
 
 

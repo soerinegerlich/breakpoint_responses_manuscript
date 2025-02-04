@@ -1,63 +1,59 @@
-library(tidyverse)
-library(readxl)
-library(gridExtra)
-
+################################################################################
+##################### Forest plot - Figure 3 ###################################
+################################################################################
 
 df_summary_snow_peak <-
-  read_xlsx("Data/Summary_tables/Final/df_summary_peak_snow_final.xlsx")
+  read_xlsx("Data/Summary_tables/Final/df_summary_peak_snow_temp_final_new.xlsx")
 
 df_summary_temp_peak <-
-  read_xlsx("Data/Summary_tables/Final/df_summary_peak_temp_final.xlsx")
+  read_xlsx("Data/Summary_tables/Final/df_summary_peak_temp_snow_final_new.xlsx")
 
 
-df_summary_snow_peak$SpeciesID <-
-  factor(
-    df_summary_snow_peak$SpeciesID,
-    # Relevel group factor
-    levels = c(
-      "Acari",
-      "Collembola",
-      "Aphidoidea",
-      "Coccoidea",
-      "Chalcidoidea",
-      "Ichneumonidae",
-      "Chironomidae",
-      "Culicidae",
-      "Muscidae",
-      "Nymphalidae",
-      "Phoridae",
-      "Sciaridae",
-      "Linyphiidae",
-      "Lycosidae",
-      "Thomisidae"
-    )
+
+# Define a separate y-position for the meta-analysis
+
+#Slope diff
+
+meta_analysis_snow <- data.frame(
+  SpeciesID = "Meta-analysis",  # Label for meta-analysis
+  Slopediff_snow = 0.54,
+  CI_max_slopediff_snow = 0.21,          # Standard error of slope difference
+  CI_min_slopediff_snow = 0.87
+)
+
+meta_analysis_snow$SpeciesID <- "Meta-analysis"
+
+df_summary_snow_peak$SpeciesID <- factor(
+  df_summary_snow_peak$SpeciesID,
+  levels = c(
+    "Acari",
+    "Collembola",
+    "Aphidoidea",
+    "Coccoidea",
+    "Chalcidoidea",
+    "Ichneumonidae",
+    "Chironomidae",
+    "Culicidae",
+    "Muscidae",
+    "Nymphalidae",
+    "Phoridae",
+    "Sciaridae",
+    "Linyphiidae",
+    "Lycosidae",
+    "Thomisidae",
+    "Meta-analysis"  # Add meta-analysis at the end
   )
+)
 
-df_summary_temp_peak$SpeciesID <-
-  factor(
-    df_summary_temp_peak$SpeciesID,
-    # Relevel group factor
-    levels = c(
-      "Acari",
-      "Collembola",
-      "Aphidoidea",
-      "Coccoidea",
-      "Chalcidoidea",
-      "Ichneumonidae",
-      "Chironomidae",
-      "Culicidae",
-      "Muscidae",
-      "Nymphalidae",
-      "Phoridae",
-      "Sciaridae",
-      "Linyphiidae",
-      "Lycosidae",
-      "Thomisidae"
-    )
-  )
+# Ensure Meta-analysis is re-leveled appropriately
+meta_analysis_snow$SpeciesID <- factor(
+  meta_analysis_snow$SpeciesID,
+  levels = levels(df_summary_snow_peak$SpeciesID)  # Match levels
+)
 
-Plot1 <-
-  ggplot(df_summary_snow_peak, aes(y = SpeciesID, x = Slopediff)) +
+
+# Create the plot
+Plot2 <- ggplot(df_summary_snow_peak, aes(y = SpeciesID, x = Slopediff)) +
   geom_vline(
     xintercept = 0,
     color = "grey",
@@ -71,9 +67,9 @@ Plot1 <-
       xmax = Slopediff + SEslopediff,
       group = Habitat
     ),
-    height = 0.25,
-    linewidth = 0.3,
-    position = position_dodge(width = .9)
+    height = 0,  # Removes vertical lines
+    position = position_dodge(width = .9),
+    linewidth = 0.4
   ) +
   geom_point(
     aes(
@@ -84,8 +80,31 @@ Plot1 <-
     size = 2,
     position = position_dodge(width = .9)
   ) +
+  geom_crossbar(
+    data = meta_analysis_snow,
+    aes(
+      x = Slopediff_snow,  # Specify the x aesthetic explicitly
+      y = SpeciesID,
+      xmin = CI_min_slopediff_snow,
+      xmax = CI_max_slopediff_snow,
+    ),
+    fill = "red",
+    color = "red",
+    alpha = 0.6
+  ) +
+  geom_point(
+    data = meta_analysis_snow,
+    aes(
+      x = Slopediff_snow,
+      y = SpeciesID
+    ),
+    size = 3,
+    stroke = 1,
+    shape = 9,  # Diamond shape
+    color = "black"
+  ) +
   facet_grid(SpeciesID ~ ., scales = "free", space = "free") +
-  scale_shape_manual(values = c(22, 21, 24, 23)) +
+  scale_shape_manual(values = c(22, 21, 24, 23, 25)) +
   scale_fill_manual(
     values = c(
       "darkseagreen3",
@@ -102,14 +121,13 @@ Plot1 <-
       "gold",
       "dodgerblue",
       "blue",
-      "dodgerblue4"
+      "dodgerblue4",
+      "red"  # Color for meta-analysis
     )
   ) +
-  scale_color_manual(values = c("black")) +
-  #scale_colour_manual(values=c("black", "black", "black", "black"))+
-  #scale_y_continuous(name = "", breaks=1:14, labels = df_summary_snow$SpeciesIDf, trans = "reverse") +
-  coord_cartesian(xlim=c(-4, 4))+
-  xlab("Slope difference") +
+  scale_color_manual(values = c("black", "red")) +
+  coord_cartesian(xlim = c(-4, 4)) +
+  xlab(" ") +
   ylab(" ") +
   theme_bw() +
   theme(
@@ -123,10 +141,50 @@ Plot1 <-
     strip.text.y = element_blank(),
     legend.position = "none",
     plot.margin = unit(c(5,20,5,0), "mm")
-    #plot.margin = marginFig4
   )
 
-Plot2 <- ggplot(df_summary_snow_peak, aes(y = SpeciesID, x = Slope1)) +
+
+#Slope 1
+
+meta_analysis_snow <- data.frame(
+  SpeciesID = "Meta-analysis",  # Label for meta-analysis
+  Slope1_snow <- -0.05,
+  CI_min_slope1_snow <- -0.34,           # Standard error of slope difference
+  CI_max_slope1_snow <- 0.24
+)
+
+meta_analysis_snow$SpeciesID <- "Meta-analysis"
+
+df_summary_snow_peak$SpeciesID <- factor(
+  df_summary_snow_peak$SpeciesID,
+  levels = c(
+    "Acari",
+    "Collembola",
+    "Aphidoidea",
+    "Coccoidea",
+    "Chalcidoidea",
+    "Ichneumonidae",
+    "Chironomidae",
+    "Culicidae",
+    "Muscidae",
+    "Nymphalidae",
+    "Phoridae",
+    "Sciaridae",
+    "Linyphiidae",
+    "Lycosidae",
+    "Thomisidae",
+    "Meta-analysis"  # Add meta-analysis at the end
+  )
+)
+
+# Ensure Meta-analysis is re-leveled appropriately
+meta_analysis_snow$SpeciesID <- factor(
+  meta_analysis_snow$SpeciesID,
+  levels = levels(df_summary_snow_peak$SpeciesID)  # Match levels
+)
+
+
+Plot1 <- ggplot(df_summary_snow_peak, aes(y = SpeciesID, x = Slope1)) +
   geom_vline(
     xintercept = 0,
     color = "grey",
@@ -140,9 +198,9 @@ Plot2 <- ggplot(df_summary_snow_peak, aes(y = SpeciesID, x = Slope1)) +
       xmax = Slope1 + SEslope,
       group = Habitat
     ),
-    linewidth = 0.3,
-    height = 0.25,
-    position = position_dodge(width = .9)
+    height = 0,  # Removes vertical lines
+    position = position_dodge(width = .9),
+    linewidth = 0.4
   ) +
   geom_point(
     aes(
@@ -153,8 +211,32 @@ Plot2 <- ggplot(df_summary_snow_peak, aes(y = SpeciesID, x = Slope1)) +
     size = 2,
     position = position_dodge(width = .9)
   ) +
+  # Add the meta-analysis point and error bar
+  geom_crossbar(
+    data = meta_analysis_snow,
+    aes(
+      x = Slope1_snow,  # Specify the x aesthetic explicitly
+      y = SpeciesID,
+      xmin = CI_min_slope1_snow,
+      xmax = CI_max_slope1_snow,
+    ),
+    fill = "red",
+    color = "red",
+    alpha = 0.6
+  ) +
+  geom_point(
+    data = meta_analysis_snow,
+    aes(
+      x = Slope1_snow,
+      y = SpeciesID
+    ),
+    size = 3,
+    stroke = 1,
+    shape = 9,
+    color = "black"
+  ) +
   facet_grid(SpeciesID ~ ., scales = "free", space = "free") +
-  scale_shape_manual(values = c(22, 21, 24, 23)) +
+  scale_shape_manual(values = c(22, 21, 24, 23, 25)) +
   scale_fill_manual(
     values = c(
       "darkseagreen3",
@@ -177,7 +259,7 @@ Plot2 <- ggplot(df_summary_snow_peak, aes(y = SpeciesID, x = Slope1)) +
   scale_color_manual(values = c("black")) +
   #scale_y_continuous(name = "", breaks=1:14, labels = df_summary_snow$SpeciesIDf, trans = "reverse") +
   coord_cartesian(xlim=c(-4, 4))+
-  xlab("Slope 1") +
+  xlab(" ") +
   ylab(" ") +
   theme_bw() +
   theme(
@@ -191,12 +273,52 @@ Plot2 <- ggplot(df_summary_snow_peak, aes(y = SpeciesID, x = Slope1)) +
     strip.text.y = element_blank(),
     legend.position = "none",
     plot.margin = unit(c(5,0,5,0), "mm")
-    #plot.margin = marginFig3
   )
 
 
-Plot3 <-
-  ggplot(df_summary_temp_peak, aes(y = SpeciesID, x = Slopediff)) +
+#### Temperature
+
+#Slope diff
+
+meta_analysis <- data.frame(
+  SpeciesID = "Meta-analysis",  # Label for meta-analysis
+  Slopediff <- -1.94,
+  CI_min_slopediff <- -5.02,          
+  CI_max_slopediff <- 1.14          
+)
+meta_analysis$SpeciesID <- "Meta-analysis"
+
+df_summary_temp_peak$SpeciesID <- factor(
+  df_summary_temp_peak$SpeciesID,
+  levels = c(
+    "Acari",
+    "Collembola",
+    "Aphidoidea",
+    "Coccoidea",
+    "Chalcidoidea",
+    "Ichneumonidae",
+    "Chironomidae",
+    "Culicidae",
+    "Muscidae",
+    "Nymphalidae",
+    "Phoridae",
+    "Sciaridae",
+    "Linyphiidae",
+    "Lycosidae",
+    "Thomisidae",
+    "Meta-analysis"  # Add meta-analysis at the end
+  )
+)
+
+# Ensure Meta-analysis is re-leveled appropriately
+meta_analysis$SpeciesID <- factor(
+  meta_analysis$SpeciesID,
+  levels = levels(df_summary_temp_peak$SpeciesID)  # Match levels
+)
+
+
+# Create the plot
+Plot4 <- ggplot(df_summary_temp_peak, aes(y = SpeciesID, x = Slopediff)) +
   geom_vline(
     xintercept = 0,
     color = "grey",
@@ -210,9 +332,9 @@ Plot3 <-
       xmax = Slopediff + SEslopediff,
       group = Habitat
     ),
-    linewidth = 0.3,
-    height = 0.25,
-    position = position_dodge(width = .9)
+    height = 0.00,
+    position = position_dodge(width = .9),
+    linewidth = 0.4
   ) +
   geom_point(
     aes(
@@ -223,8 +345,31 @@ Plot3 <-
     size = 2,
     position = position_dodge(width = .9)
   ) +
+  geom_crossbar(
+    data = meta_analysis,
+    aes(
+      x = Slopediff,  # Specify the x aesthetic explicitly
+      y = SpeciesID,
+      xmin = CI_min_slopediff,
+      xmax = CI_max_slopediff,
+    ),
+    fill = "red",
+    color = "red",
+    alpha = 0.6
+  ) +
+  geom_point(
+    data = meta_analysis,
+    aes(
+      x = Slopediff,
+      y = SpeciesID
+    ),
+    size = 3,
+    stroke = 1,
+    shape = 9,  # Diamond shape
+    color = "black"
+  ) +
   facet_grid(SpeciesID ~ ., scales = "free", space = "free") +
-  scale_shape_manual(values = c(22, 21, 24, 23)) +
+  scale_shape_manual(values = c(22, 21, 24, 23, 25)) +
   scale_fill_manual(
     values = c(
       "darkseagreen3",
@@ -241,14 +386,13 @@ Plot3 <-
       "gold",
       "dodgerblue",
       "blue",
-      "dodgerblue4"
+      "dodgerblue4",
+      "red"  # Color for meta-analysis
     )
   ) +
-  scale_color_manual(values = c("black")) +
-  #scale_colour_manual(values=c("black", "black", "black", "black"))+
-  #scale_y_continuous(name = "", breaks=1:14, labels = df_summary_snow$SpeciesIDf, trans = "reverse") +
-  coord_cartesian(xlim=c(-80, 80))+
-  xlab("Slope difference") +
+  scale_color_manual(values = c("black", "red")) +
+  coord_cartesian(xlim=c(-50, 50))+
+  xlab(" ") +
   ylab(" ") +
   theme_bw() +
   theme(
@@ -265,8 +409,47 @@ Plot3 <-
     plot.margin = unit(c(5,20,5,0), "mm")
   )
 
+#Slope 1
 
-Plot4 <- ggplot(df_summary_temp_peak, aes(y = SpeciesID, x = Slope1)) +
+meta_analysis <- data.frame(
+  SpeciesID = "Meta-analysis",  # Label for meta-analysis
+  Slope1 <- -1.23,
+  CI_min_slope1 <- -2.56,          
+  CI_max_slope1 <- 0.10         
+)
+
+meta_analysis$SpeciesID <- "Meta-analysis"
+
+df_summary_temp_peak$SpeciesID <- factor(
+  df_summary_temp_peak$SpeciesID,
+  levels = c(
+    "Acari",
+    "Collembola",
+    "Aphidoidea",
+    "Coccoidea",
+    "Chalcidoidea",
+    "Ichneumonidae",
+    "Chironomidae",
+    "Culicidae",
+    "Muscidae",
+    "Nymphalidae",
+    "Phoridae",
+    "Sciaridae",
+    "Linyphiidae",
+    "Lycosidae",
+    "Thomisidae",
+    "Meta-analysis"  # Add meta-analysis at the end
+  )
+)
+
+# Ensure Meta-analysis is re-leveled appropriately
+meta_analysis$SpeciesID <- factor(
+  meta_analysis$SpeciesID,
+  levels = levels(df_summary_temp_peak$SpeciesID)  # Match levels
+)
+
+
+Plot3 <- ggplot(df_summary_temp_peak, aes(y = SpeciesID, x = Slope1)) +
   geom_vline(
     xintercept = 0,
     color = "grey",
@@ -280,9 +463,32 @@ Plot4 <- ggplot(df_summary_temp_peak, aes(y = SpeciesID, x = Slope1)) +
       xmax = Slope1 + SEslope,
       group = Habitat
     ),
-    linewidth = 0.3,
-    height = 0.25,
-    position = position_dodge(width = .9)
+    height = 0.00,
+    position = position_dodge(width = .9),
+    linewidth = 0.4
+  ) +
+  geom_crossbar(
+    data = meta_analysis,
+    aes(
+      x = Slope1,  # Specify the x aesthetic explicitly
+      y = SpeciesID,
+      xmin = CI_min_slope1,
+      xmax = CI_max_slope1,
+    ),
+    fill = "red",
+    color = "red",
+    alpha = 0.6
+  ) +
+  geom_point(
+    data = meta_analysis,
+    aes(
+      x = Slope1,
+      y = SpeciesID
+    ),
+    size = 3,
+    stroke = 1,
+    shape = 9,
+    color = "black"
   ) +
   geom_point(
     aes(
@@ -294,7 +500,7 @@ Plot4 <- ggplot(df_summary_temp_peak, aes(y = SpeciesID, x = Slope1)) +
     position = position_dodge(width = .9)
   ) +
   facet_grid(SpeciesID ~ ., scales = "free", space = "free") +
-  scale_shape_manual(values = c(22, 21, 24, 23)) +
+  scale_shape_manual(values = c(22, 21, 24, 23, 25)) +
   scale_fill_manual(
     values = c(
       "darkseagreen3",
@@ -316,8 +522,8 @@ Plot4 <- ggplot(df_summary_temp_peak, aes(y = SpeciesID, x = Slope1)) +
   ) +
   scale_color_manual(values = c("black")) +
   #scale_y_continuous(name = "", breaks=1:14, labels = df_summary_snow$SpeciesIDf, trans = "reverse") +
-  coord_cartesian(xlim=c(-80, 80))+
-  xlab("Slope 1") +
+  coord_cartesian(xlim=c(-50, 50))+
+  xlab(" ") +
   ylab(" ") +
   theme_bw() +
   theme(
@@ -333,13 +539,18 @@ Plot4 <- ggplot(df_summary_temp_peak, aes(y = SpeciesID, x = Slope1)) +
     plot.margin = unit(c(5,0,5,0), "mm")
   )
 
+require(ggpubr)
 
-ggarrange(Plot4, Plot3, Plot2, Plot1, ncol = 2,
-          nrow = 2, labels = c(
-            "a. Peak - Temperature",
-            "",
-            "b. Peak - Snowmelt"
-          ), hjust = c(-0.7,0,-0.8), 
-          font.label = list(color = "black", size = 10))+
+ggarrange(
+  Plot1,
+  Plot2,
+  Plot3,
+  Plot4,
+  ncol = 2,
+  nrow = 2,
+  legend = "none"
+) +
   theme(plot.margin = unit(c(1,1,1,1), "cm"))
+#theme(plot.margin = margin(0.5, 0.2, 0.2, 0.2, "cm"))
+
 

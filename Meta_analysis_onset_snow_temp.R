@@ -10,7 +10,7 @@ library(readxl)
 library(metafor)
 
 df_summary_snow <-
-  read_xlsx("Data/Summary_tables/Final/df_summary_onset_snow_temp_final.xlsx")
+  read_xlsx("Data/Summary_tables/Final/df_summary_onset_snow_temp_final_new.xlsx")
 
 
 #rma.mv() is the only metafor function where it's possible to add random effects. However,
@@ -179,7 +179,6 @@ simple_slope <-
   rma.mv(
     yi = Slope1,
     V = SEslopesq,
-    random = list( ~ 1 | plotspec),
     data = df_summary_snow
   )
 summary(simple_slope)
@@ -213,7 +212,7 @@ md_slope <-
   rma.mv(
     yi = Slope1,
     V = SEslopesq,
-    random = list(~ 1 | plotspec, ~ 1 | SpeciesID),
+    random = list(~ 1 | SpeciesID),
     data = df_summary_snow
   )
 
@@ -223,7 +222,7 @@ md1_slope <-
   rma.mv(
     yi = Slope1,
     V = SEslopesq,
-    random = list(~ 1 | plotspec, ~ 1 | Plot),
+    random = list(~ 1 | Plot),
     data = df_summary_snow
   )
 

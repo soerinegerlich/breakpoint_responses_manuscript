@@ -12,7 +12,7 @@ library(gridExtra)
 
 
 df_summary_snow <-
-  read_xlsx("Data/Summary_tables/Final/df_summary_onset_snow_final.xlsx")
+  read_xlsx("Data/Summary_tables/Final/df_summary_onset_snow_final_new.xlsx")
 
 #rma.mv() is the only metafor function where it's possible to add random effects. However,
 #it's not possible to use SE. Instead we have to include the variance of the
@@ -72,8 +72,8 @@ all_linear <-
   rma.mv(
     yi = OriginalSlope,
     V = OriginalSEsq,
-    random = list( ~ 1 |
-                     SpeciesID, ~ 1 | Plot, ~ 1 | plotspec),
+    random = list(~ 1 | plotspec, ~ 1 |
+                     SpeciesID, ~ 1 | Plot),
     data = df_summary_snow
   )
 
@@ -154,6 +154,7 @@ summary(md2)
 anova(simple, md)
 anova(simple, md1)
 anova(simple, md2)
+anova(simple, all)
 
 anova(md, all)
 anova(md1, all)
@@ -176,7 +177,7 @@ all_slope <-
 
 summary(all_slope)
 
-########## Run rma function on simple model ###########
+######### Run rma function on simple model ###########
 
 simple_slope <- rma.mv(yi = Slope1, V = SEslopesq, data = df_summary_snow)
 

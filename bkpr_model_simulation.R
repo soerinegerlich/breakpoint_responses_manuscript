@@ -141,7 +141,7 @@ storeseslopediff<-c()
 storeseslopedifforiginal<-c()
 
 
-yearno<-25
+yearno<-28
 #Number of years in dataset
 	
 	
@@ -159,7 +159,7 @@ temperature<-rnorm(n=yearno,mean=4,sd=2)
 
 #2. The location of the bp is at a specific location in the middle of temp
 # observations
-bplocate<-sort(temperature)[13]
+bplocate<-sort(temperature)[3]
 
 #3. The location of the bp is at a specific location in the extreme
 #bplocate<-sort(temperature)[3]
@@ -216,7 +216,7 @@ length(which(storeporiginal<=0.05))/length(storeporiginal)
 #For breakpoint at value 13 the results are OriginalPvalue = 0.421, M_P = 0.197
 
 #effect on se
-plot(storeseslopedifforiginal, storeseslopediff,xlab="Original model se",ylab="Simulation based se",pch=16,col="gray",xlim=c(0,25),ylim=c(0,25))
+plot(storeseslopedifforiginal, storeseslopediff,xlab="Original model se",ylab="Simulation based se",pch=16,col="gray",xlim=c(0,28),ylim=c(0,28))
 abline(0,1,lty=2)
 
 #Power in null model (not calculated)
@@ -232,20 +232,20 @@ abline(0,1,lty=2)
 
 ####Manuscript figure presented in suppl. info regarding power:
 
-#Based on 25 years
+#Based on 28 years
 
 #Breakpoint ~ 13
 df <- data.frame(Model_Pvalue=c("Original_P", "M_P"),
-                 Freq_signi_slopediff=c(0.421, 0.197))
+                 Freq_signi_slopediff=c(0.49, 0.27))
 
 #Breakpoint ~ 3
 df <- data.frame(Model_Pvalue=c("Original_P", "M_P"),
-                 Freq_signi_slopediff=c(0.217, 0.084))
+                 Freq_signi_slopediff=c(0.24, 0.08))
 
 #Breakpoint ~ 13 and 3 type 1 error (null model)
 df <- data.frame(Model_Pvalue=c("Original model P null BP ~13", "New model P null BP ~13", 
                                 "Original model P null BP ~3", "New model P null BP ~3"),
-                 Freq_signi_slope=c( 0.181, 0.053, 0.162, 0.047),
+                 Freq_signi_slope=c( 0.49, 0.27, 0.24, 0.08),
                  ID = c(1,1,2,2))
 
 df$Model_Pvalue <- factor(df$Model_Pvalue,                 # Relevel group factor
@@ -272,7 +272,7 @@ ggplot(data=df, aes(x=Model_Pvalue, y=Freq_signi_slope)) +
 
 df <- data.frame(Model_Pvalue=c("New model P BP ~13", 
                                 "New model P BP ~3"),
-                 Freq_signi_slope_diff=c(0.197, 0.084),
+                 Freq_signi_slope_diff=c(0.266, 0.084),
                  ID = c(1,2))
 
 df$Model_Pvalue <- factor(df$Model_Pvalue,                 # Relevel group factor
@@ -292,7 +292,7 @@ ggplot(data=df, aes(x=Model_Pvalue, y=Freq_signi_slope_diff, fill = factor(ID)))
 
 #Breakpoint [13] null model
 df <- data.frame(Model_Pvalue=c("Original model P", "New model P", "Original model P null", "New model P null"),
-                 Freq_signi_slopediff=c(0.421, 0.197, 0.181, 0.053))
+                 Freq_signi_slopediff=c(0.494, 0.266, 0.181, 0.053))
 
 df$Model_Pvalue <- factor(df$Model_Pvalue,        # Relevel group factor
                           levels = c("Original model P", "New model P", "Original model P null", "New model P null"))
@@ -342,11 +342,11 @@ plot(storeslopediff,(1/storeseslopediff))
 df1 <- as.data.frame(storeslopediff)
 df1$Model <- "Non_null"
 
-#require(writexl)
+require(writexl)
 
-#write_xlsx(df1, "Data/Simulation\\df_simulation_bp3.xlsx", col_names = TRUE)
+#write_xlsx(df1, "Data/Simulation\\df_simulation_bp3_new.xlsx", col_names = TRUE)
 
-#write_xlsx(df1, "Data/Simulation\\df_simulation_bp13.xlsx", col_names = TRUE)
+#write_xlsx(df1, "Data/Simulation\\df_simulation_bp13_new.xlsx", col_names = TRUE)
 
 #write_xlsx(df1, "Data/Simulation\\df_simulation_50.xlsx", col_names = TRUE)
 
