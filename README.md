@@ -3,20 +3,16 @@
 ## Content
 This repository contains the code and data necessary to replicate data analyses, figures and tables in:
 
-Gerlich, Hannah Sørine, Martin Holmstrup, Niels Martin Schmidt, Ally Phillimore and Toke T. Høye. (2024). Submitted. ***Keeping up with climate change - have phenological reaction norms reached their limit in Arctic arthropods?***
+***Keeping up with climate change - have Arctic arthropods reached their phenological limits?***
 
-## Contact
-Hannah Sørine Gerlich
-
-Email: soger [at] ecos.au.dk
 
 ## Data usage guidelines
 
 ### Data
 
-- Phenological observations for Zackenberg were provided by the Greenland Ecosystem Monitoring Programme. Data available at: https://data.g-e-m.dk/ The raw data downloaded from the database is included in this repository (downloaded 14. September 2022) is included in this repository along with a formatted version including all estimated phenological events.
+- Phenological observations for Zackenberg were provided by the Greenland Ecosystem Monitoring Programme. Data available at: https://data.g-e-m.dk/ The raw data downloaded from the database is included in this repository is included in this repository along with a formatted version including all estimated phenological events.
 
-- Environmental predictors: Temperature and snowmelt observations for Zackenberg were also provided by the Greenland Ecosystem Monitoring Programme. Data available at: https://data.g-e-m.dk/ The raw data downloaded from the database is included in this repository (downloaded 13. January 2022) along with a formatted version including all estimated temperature and timing of snowmelt estimates.
+- Environmental predictors: Temperature and snowmelt observations for Zackenberg were also provided by the Greenland Ecosystem Monitoring Programme. Data available at: https://data.g-e-m.dk/ The raw data downloaded from the database is included in this repository along with a formatted version including all estimated temperature and timing of snowmelt estimates.
 
 ### Code 
 All code provided for data preparation and analysis is licensed under a MIT License. In accordance with the license the code is available to be shared and adapted, but we would appreciate attribution to the authors, e.g. through citation of the above manuscript, and indications where changes were made. Although not mandatory, we additionally suggest that code users contact and collaborate with contributors should the code form a substantial proportion of a particular publication or analysis.
