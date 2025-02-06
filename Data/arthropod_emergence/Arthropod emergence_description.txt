@@ -1,0 +1,16 @@
+﻿BioBasis Zackenberg - Arthropods - Arthropod emergence
+Location: Permanent plots lat: 74.47 lon: -20.57 accuracy: No exact location - station coordinates
+Weekly data on arthropod numbers in permanent pitfall and flight-intercept traps. For further details, please refer to the newest BioBasis manual available at the website.    Arthropods:Arthropods    BioBasis Zackenberg:The BioBasis programme monitors the dynamics of organisms and biological processes in the terrestrial and limnic ecosystems at Zackenberg and Nuuk. The BioBasis programme plays a central role in the development and implementation of the Circumpolar Biodiversity Monitoring Programme (CBMP) http://www.caff.is/monitoring across the Arctic. 
+-------------------------------------
+Cite as: "Greenland Ecosystem Monitoring (2025). BioBasis Zackenberg - Arthropods - Arthropod emergence (Version 1.0). [Data set] [Download ID: 2447125d-6353-480d-aa8e-bd9b838257b9] [CC-BY-SA-4.0]. Greenland Ecosystem Monitoring. https://doi.org/10.17897/V285-Z265"
+-------------------------------------
+Dataset DOI and permanent link: https://doi.org/10.17897/V285-Z265
+Download ID of this download package, for reproducible research: 2447125d-6353-480d-aa8e-bd9b838257b9
+Read the included PDF with terms of use for information on license and how to cite.
+Also find this item on DataCite: https://commons.datacite.org/doi.org/10.17897/V285-Z265
+-------------------------------------
+Learn more about the Greenland Ecosystem Monitoring Project here: https://www.g-e-m.dk.
+This dataset is managed in accordance with the GEM Data Management Plan: https://g-e-m.dk/gem-publications-and-reports/gem-data-management-plan/
+-------------------------------------
+Supplementary data you should review for understanding the dataset:
+The BioBasis Zackenberg monitoring manual: https://g-e-m.dk/gem-publications-and-reports/manuals

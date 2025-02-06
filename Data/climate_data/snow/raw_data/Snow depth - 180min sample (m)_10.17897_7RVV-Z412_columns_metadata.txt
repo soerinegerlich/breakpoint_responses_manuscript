@@ -1,0 +1,5 @@
+﻿ColumnName	Description	Unit	DataType
+Date	Date of observation	YYYY-MM-DD	Date
+Time	Time of observation (UTC)	HH:MM	Time
+SD (m)	Data comments:	M	Number
+Quality Flag	"Flag assigned during quality control. Flag = ""fair"" is assigned instead of good to indicate where a value is interpolated, or, where only 1 timeseries has been used where it is normal to take the average of 2 timeseries. Flag = unknown is equivalent to the flag ""good"" or ""fair"" and is due a change in proceedures. Work is underway to update these flags."		Text

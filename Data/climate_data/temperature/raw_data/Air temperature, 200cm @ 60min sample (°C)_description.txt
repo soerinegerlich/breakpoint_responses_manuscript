@@ -1,0 +1,17 @@
+﻿ClimateBasis Zackenberg - Air temperature - Air temperature, 200cm @ 60min sample (°C)
+Location: Climate Stations lat: 74.47188568115234 lon: -20.552244186401367 accuracy: Specific named location
+Air temperature measured on two proximal climate stations at 200 cm above ground as a 60min sample (°C). The double masted climate station is located north of the station at 44 m a.s.l.. The timeseries starts in 1995. Quality control is performed on both datasets from the double mast system. The combined time series is calculated as an average of the 2 sensors, or if data is missing from 1 sensor the other used in conjunction with a regression. Please read the metadata file provided with the data for comments related to the data in this timeseries.    Air temperature:Air temperature    ClimateBasis Zackenberg:The ClimateBasis programme monitors climate and hydrology in Zackenberg, Kobbefjord and Disko (Qeqertarsuaq) and is run by Asiaq - Greenland Survey. The collected data build base-line information on climate variability and trends for all the other sub-programmes within GEM and serve as a trustworthy foundation for adaptation strategies for the Greenlandic society. The stations are embedded in Asiaq’s extensive climate and hydrology monitoring network. Furthermore, the run-off data is delivered to the World Hydrological Cycle Observing System (WHYCOS) and the Global Runoff Data Centre (GRDC) networks.
+
+-------------------------------------
+Cite as: "Greenland Ecosystem Monitoring (2025). ClimateBasis Zackenberg - Air temperature - Air temperature, 200cm @ 60min sample (°C) (Version 1.0). [Data set] [Download ID: 12f8453d-dd21-475e-91f9-7805d58f28a8] [CC-BY-SA-4.0]. Greenland Ecosystem Monitoring. https://doi.org/10.17897/XV96-HC57"
+-------------------------------------
+Dataset DOI and permanent link: https://doi.org/10.17897/XV96-HC57
+Download ID of this download package, for reproducible research: 12f8453d-dd21-475e-91f9-7805d58f28a8
+Read the included PDF with terms of use for information on license and how to cite.
+Also find this item on DataCite: https://commons.datacite.org/doi.org/10.17897/XV96-HC57
+-------------------------------------
+Learn more about the Greenland Ecosystem Monitoring Project here: https://www.g-e-m.dk.
+This dataset is managed in accordance with the GEM Data Management Plan: https://g-e-m.dk/gem-publications-and-reports/gem-data-management-plan/
+-------------------------------------
+Supplementary data you should review for understanding the dataset:
+The ClimateBasis Zackenberg monitoring manual: https://g-e-m.dk/gem-publications-and-reports/manuals

@@ -1,0 +1,5 @@
+﻿ColumnName	Description	Unit	DataType
+Date	Date of observation	YYYY-MM-DD	Date
+Time	Time of observation (UTC)	HH:MM	Time
+AT (°C)	Data comments: 22/06/2009 - program change from 60min to 30min sampling, after which 60min data is sampled from the 30min timeseries	°C	Number
+Quality Flag	"Flag assigned during quality control. Flag = ""fair"" is assigned instead of good to indicate where a value is interpolated, or, where only 1 timeseries has been used where it is normal to take the average of 2 timeseries. Flag = unknown is equivalent to the flag ""good"" or ""fair"" and is due a change in proceedures. Work is underway to update these flags."		Text

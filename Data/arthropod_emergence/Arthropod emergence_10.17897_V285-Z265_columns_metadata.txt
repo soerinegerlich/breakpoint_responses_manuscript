@@ -1,0 +1,29 @@
+﻿ColumnName	Description	Unit	DataType
+Date	Date of sampling	Date	Date
+Hour	Start hour of sampling (UTC)	Hour	Number
+Plot ID	Plot ID	Text	Text
+Sorter	Name of labworker(s)	Text	Text
+Days A	Number of days the traps have been open in section A, or (in 1996) sections A-D combined. For Art1, A refers to the North chamber (2006-13). From 2014 onwards, A refers to the North-South chambers combined.	Number	Number
+Days B	Number of days the traps have been open in section B, or (in 1996) sections A-D combined. For Art1, B refers to the South chamber (2006-13). From 2014 onwards, B refers to the East-West chambers combined.	Number	Number
+Days C	Number of days the traps have been open in section C, or (in 1996) sections A-D combined. For Art1, C refers to the East chamber (2006-13).	Number	Number
+Days D	Number of days the traps have been open in section D, or (in 1996) sections A-D combined. For Art1, D refers to the West chamber (2006-13).	Number	Number
+Days E	Number of days the traps have been open in section E.	Number	Number
+Days F	Number of days the traps have been open in section F.	Number	Number
+Days G	Number of days the traps have been open in section G.	Number	Number
+Days H	Number of days the traps have been open in section H.	Number	Number
+Phylum	Phylum of the collected arthropod	Text	Text
+Order	Order of the collected arthropod	Text	Text
+Family	Family or super-family of the collected arthropod	Text	Text
+Genus	Genus of the collected arthropod	Text	Text
+Species	Species of the collected arthropod	Text	Text
+A	The number of collected individuals from section A, or (in 1996) sections A-D combined.  For Art1, A refers to the North chamber (2006-13). From 2014 onwards, A refers to the North-South chambers combined.	Number	Number
+B	The number of collected individuals from section B, or (in 1996) sections A-D combined.  For Art1, B refers to the South chamber (2006-13). From 2014 onwards, B refers to the East-West chambers combined.	Number	Number
+C	The number of collected individuals from section C, or (in 1996) sections A-D combined.  For Art1, C refers to the East chamber (2006-13).	Number	Number
+D	The number of collected individuals from section D, or (in 1996) sections A-D combined.  For Art1, D refers to the West chamber (2006-13).	Number	Number
+E	The number of collected individuals from section E.	Number	Number
+F	The number of collected individuals from section F.	Number	Number
+G	The number of collected individuals from section G.	Number	Number
+H	The number of collected individuals from section H.	Number	Number
+Field_remarks	Remarks from the field observer	Text	Text
+Sorting_remarks	Remarks from the sorter	Text	Text
+General_remarks	General remarks	Text	Text
